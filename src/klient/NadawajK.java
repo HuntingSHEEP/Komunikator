@@ -12,6 +12,7 @@ class NadawajK extends Thread
     BufferedReader klaw;
     PrintWriter outp;
     String str;
+    OdbiorK watekOdbierajacy;
 
 
 
@@ -20,6 +21,10 @@ class NadawajK extends Thread
         this.sock=sock;
         this.klaw=new BufferedReader(new InputStreamReader(System.in));
         this.outp=new PrintWriter(sock.getOutputStream());
+    }
+
+    public void podajWatekOdbierajacy(OdbiorK odbior){
+        this.watekOdbierajacy = odbior;
     }
 
     public void run()
@@ -33,17 +38,20 @@ class NadawajK extends Thread
                     outp.println(str);
                     outp.flush();
 
+                    killOdbior();
                     System.out.println("NEXIT");
                     break;
+                    
                 }
 
                 outp.println(str);
                 outp.flush();
             }
         }catch(Exception e){System.out.println("Yolooooo XD. "+e);}
+        
+    }
 
-
-
-
+    private void killOdbior() {
+        watekOdbierajacy.killME();
     }
 }

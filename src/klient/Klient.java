@@ -10,6 +10,9 @@ public class Klient
 
    public static void main(String[] args) throws IOException
    {
+      //TODO: Klient łączy pod wskazany adres  na porcie Z PULI PORTÓW; POWIEDZMY NA POCZĄTEK STAŁA PULA PORTÓW;  PRÓBUJEMY ŁĄCZYĆ SIĘ Po kolei do skutku
+       //TODO: zamykanie połączenie od strony klienta za pomocą jednej komendy
+
       //nawiazanie polaczenia z serwerem
       Socket sock;
       sock=new Socket(HOST,PORT);
@@ -17,9 +20,15 @@ public class Klient
 
 
       //tworzenie wątku nadającego
-      new NadawajK(sock).start();
+      NadawajK nadawanie = new NadawajK(sock);
+      nadawanie.start();
+
       //tworzenie watka odbierajacego
-      new OdbiorK(sock).start();
+      OdbiorK odbieranie = new OdbiorK(sock);
+      odbieranie.start();
+
+      //przekazanie referencji do watku
+       nadawanie.podajWatekOdbierajacy(odbieranie);
 
       //zamykanie polaczenia
       //sock.close();

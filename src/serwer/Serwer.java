@@ -3,6 +3,18 @@ package serwer;
 import java.io.*;
 import java.net.*;
 
+/*
+if (server != null && !server.isClosed()) {
+        try {
+        server.close();
+        } catch (IOException e)
+        {
+        e.printStackTrace(System.err);
+        }
+        }
+
+        */
+
 
 public class Serwer
 {
