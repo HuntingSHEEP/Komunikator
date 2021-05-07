@@ -3,22 +3,13 @@ package serwer;
 import java.io.*;
 import java.net.*;
 
-/*
-if (server != null && !server.isClosed()) {
-        try {
-        server.close();
-        } catch (IOException e)
-        {
-        e.printStackTrace(System.err);
-        }
-        }
-
-        */
-
 
 public class Serwer
 {
    public static final int PORT=50007;
+
+   Nadawaj watekNadajacy;
+   Odbior watekOdbierajacy;
 
    public static void main(String args[]) throws IOException
    {
@@ -34,11 +25,17 @@ public class Serwer
       System.out.println("Jest polaczenie: "+sock);
 
       //tworzenie wątku nadającego
-      nadaj(sock);
+      //nadaj(sock);
+
+      Nadawaj watekNadajacy = new Nadawaj(sock);
+      watekNadajacy.start();
 
       //tworzenie watka odbierajacego
-      odbior(sock);
+      //odbior(sock);
 
+      Odbior watekOdbierajacy = new Odbior(sock);
+      watekOdbierajacy.setWatekNadajacy(watekNadajacy);
+      watekOdbierajacy.start();
 
 
       //zamykanie polaczenia
@@ -56,6 +53,5 @@ public class Serwer
      try{
         new Nadawaj(sock).start();
      }catch(Exception e){System.out.println("sync Nadaj");}
-
    }
 }

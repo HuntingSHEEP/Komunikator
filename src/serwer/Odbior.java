@@ -13,6 +13,7 @@ class Odbior extends Thread
     BufferedReader inp;
     InputStream is;
     boolean isRunning = true;
+    Nadawaj watekNadajacy;
 
 
     public Odbior(Socket sock) throws IOException
@@ -20,6 +21,10 @@ class Odbior extends Thread
         this.sock=sock;
         this.inp=new BufferedReader(new InputStreamReader(sock.getInputStream()));
         this.is = sock.getInputStream();
+    }
+
+    public void setWatekNadajacy(Nadawaj nadajacy){
+        this.watekNadajacy = nadajacy;
     }
 
     public void run()
@@ -41,7 +46,7 @@ class Odbior extends Thread
                     str = str.substring(0, result - 1);
                     System.out.println("<Nadeszlo:> result [" + result + "] " + str);
                     if(str.equalsIgnoreCase("exit")){
-
+                        watekNadajacy.killME();
                         System.out.println("OEXIT");
                         break;
                     }

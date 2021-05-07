@@ -15,6 +15,7 @@ class Nadawaj extends Thread
     PrintWriter outp;
     String str;
     Odbior watekOdbierajacy;
+    boolean isRunning = true;
 
     public void podajWatekOdbierajacy(Odbior odbior){
         this.watekOdbierajacy = odbior;
@@ -30,7 +31,7 @@ class Nadawaj extends Thread
     public void run()
     {
         try{
-            while (true){
+            while (isRunning){
                 System.out.println("<Wysylamy:> ");
                 str=klaw.readLine();
 
@@ -54,5 +55,9 @@ class Nadawaj extends Thread
 
     private void killOdbior() {
         watekOdbierajacy.killME();
+    }
+
+    public void killME(){
+        isRunning = false;
     }
 }
