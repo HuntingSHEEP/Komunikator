@@ -14,6 +14,7 @@ class OdbiorK extends Thread
     BufferedReader inp;
     InputStream is;
     boolean isRunning = true;
+    NadawajK watekNadajacy;
 
 
     public OdbiorK(Socket sock) throws IOException
@@ -22,6 +23,10 @@ class OdbiorK extends Thread
         this.inp=new BufferedReader(new InputStreamReader(sock.getInputStream()));
         this.is = sock.getInputStream();
 
+    }
+
+    public void setWatekNadajacy(NadawajK nadajacy){
+        this.watekNadajacy = nadajacy;
     }
 
     public void run()
@@ -44,6 +49,7 @@ class OdbiorK extends Thread
                     System.out.println("<Nadeszlo:> result [" + result + "] " + str);
                     if(str.equalsIgnoreCase("exit")){
 
+                        killNadawaj();
                         System.out.println("OEXIT");
                         break;
                     }
@@ -53,6 +59,10 @@ class OdbiorK extends Thread
 
         }catch(Exception e){System.out.println("Coś się skichało, odbiór. "+e);}
 
+    }
+
+    private void killNadawaj() {
+        watekNadajacy.killME();
     }
 
 

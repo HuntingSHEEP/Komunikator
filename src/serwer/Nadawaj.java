@@ -48,6 +48,7 @@ class Nadawaj extends Thread
                         outp.println(str);
                         outp.flush();
 
+                        killOdbior();
                         System.out.println("NEXIT");
                         break;
                     }

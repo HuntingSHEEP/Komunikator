@@ -29,6 +29,7 @@ public class Klient
 
       //przekazanie referencji do watku
        nadawanie.podajWatekOdbierajacy(odbieranie);
+       odbieranie.setWatekNadajacy(nadawanie);
 
       //zamykanie polaczenia
       //sock.close();

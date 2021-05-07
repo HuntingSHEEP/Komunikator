@@ -35,6 +35,7 @@ public class Serwer
 
       Odbior watekOdbierajacy = new Odbior(sock);
       watekOdbierajacy.setWatekNadajacy(watekNadajacy);
+      watekNadajacy.podajWatekOdbierajacy(watekOdbierajacy);
       watekOdbierajacy.start();
 
 
