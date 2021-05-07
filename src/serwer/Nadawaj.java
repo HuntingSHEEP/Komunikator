@@ -1,5 +1,7 @@
 package serwer;
 
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,8 +14,11 @@ class Nadawaj extends Thread
     BufferedReader klaw;
     PrintWriter outp;
     String str;
+    Odbior watekOdbierajacy;
 
-
+    public void podajWatekOdbierajacy(Odbior odbior){
+        this.watekOdbierajacy = odbior;
+    }
 
     public Nadawaj(Socket sock) throws IOException
     {
@@ -45,5 +50,9 @@ class Nadawaj extends Thread
 
 
 
+    }
+
+    private void killOdbior() {
+        watekOdbierajacy.killME();
     }
 }

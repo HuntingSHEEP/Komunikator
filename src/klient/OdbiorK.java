@@ -55,24 +55,6 @@ class OdbiorK extends Thread
 
     }
 
-    public void readME() {
-        try{
-
-            byte[] inputData = new byte[1024];
-            int result = is.read(inputData, 0, is.available());
-
-            /*
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.forName("ISO-8859-1")),1024);
-            // ...
-            // inside some iteration / processing logic:
-            if (br.ready()) {
-                int readCount = br.read(inputData, bufferOffset, inputData.length-bufferOffset);
-            }
-
-             */
-
-        }catch(Exception e){}
-    }
 
     public void killME(){
         // DIE!!!
