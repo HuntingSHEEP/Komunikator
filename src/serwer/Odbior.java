@@ -42,8 +42,7 @@ class Odbior extends Thread
 
 
                 if(result > 0){
-                    str = new String(inputData);
-                    str = str.substring(0, result - 1);
+                    str = new String(inputData).substring(0, result - 1);
                     System.out.println("<Nadeszlo:> result [" + result + "] " + str);
                     if(str.equalsIgnoreCase("exit")){
                         watekNadajacy.killME();

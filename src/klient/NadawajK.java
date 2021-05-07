@@ -1,9 +1,6 @@
 package klient;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 class NadawajK extends Thread
@@ -13,7 +10,7 @@ class NadawajK extends Thread
     PrintWriter outp;
     String str;
     OdbiorK watekOdbierajacy;
-
+    InputStream is;
 
 
     public NadawajK(Socket sock) throws IOException
@@ -32,7 +29,9 @@ class NadawajK extends Thread
         try{
             while (true){
                 System.out.println("<Wysylamy:> ");
-                str=klaw.readLine();
+                byte[] inputData = new byte[1024];
+                int result = is.read(inputData, 0, is.available());
+                str = new String(inputData).substring(0, result - 1);
 
                 if(str.equalsIgnoreCase("exit")){
                     outp.println(str);

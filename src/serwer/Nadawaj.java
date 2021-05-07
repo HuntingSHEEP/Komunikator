@@ -2,10 +2,7 @@ package serwer;
 
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 class Nadawaj extends Thread
@@ -16,6 +13,7 @@ class Nadawaj extends Thread
     String str;
     Odbior watekOdbierajacy;
     boolean isRunning = true;
+    InputStream is;
 
     public void podajWatekOdbierajacy(Odbior odbior){
         this.watekOdbierajacy = odbior;
@@ -33,8 +31,9 @@ class Nadawaj extends Thread
         try{
             while (isRunning){
                 System.out.println("<Wysylamy:> ");
-                str=klaw.readLine();
-
+                byte[] inputData = new byte[1024];
+                int result = is.read(inputData, 0, is.available());
+                str = new String(inputData).substring(0, result - 1);
                 if(str.equalsIgnoreCase("exit")){
                     outp.println(str);
                     outp.flush();
