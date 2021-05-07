@@ -28,10 +28,9 @@ class NadawajK extends Thread
     {
         try{
             while (true){
+
                 System.out.println("<Wysylamy:> ");
-                byte[] inputData = new byte[1024];
-                int result = is.read(inputData, 0, is.available());
-                str = new String(inputData).substring(0, result - 1);
+                str=klaw.readLine();
 
                 if(str.equalsIgnoreCase("exit")){
                     outp.println(str);
@@ -40,13 +39,14 @@ class NadawajK extends Thread
                     killOdbior();
                     System.out.println("NEXIT");
                     break;
-                    
                 }
 
                 outp.println(str);
                 outp.flush();
+
             }
-        }catch(Exception e){System.out.println("Yolooooo XD. "+e);}
+        }catch(Exception e){System.out.println("Yolooooo XD. "+e);
+        e.printStackTrace();}
         
     }
 
