@@ -50,6 +50,7 @@ class Nadawaj extends Thread
 
                         killOdbior();
                         System.out.println("NEXIT");
+                        killOdbior();
                         break;
                     }
 

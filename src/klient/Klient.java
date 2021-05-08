@@ -50,6 +50,12 @@ public class Klient {
                 i++;
                 i %= liczbaPortow;
             }
+            if (i >= liczbaPortow ){
+                for (int j = 0;j<liczbaPortow;j++){
+                    flagiPortow[j] = 0;
+                }
+                i=0;
+            }
 
         }
 
