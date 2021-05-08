@@ -40,24 +40,15 @@ public class Serwer  {
                     System.out.println("Try accept " + e);
                 }
 
+                Polaczenie polaczenie = new Polaczenie(sock);
 
-
-                //tworzenie wątku nadającego
-                Nadawaj watekNadajacy = new Nadawaj(sock);
-                watekNadajacy.start();
-
-                //tworzenie watka odbierajacego
-                Odbior watekOdbierajacy = new Odbior(sock);
-                watekOdbierajacy.start();
-
-                //wzajemne przekazanie referancji
-                watekOdbierajacy.setWatekNadajacy(watekNadajacy);
-                watekNadajacy.podajWatekOdbierajacy(watekOdbierajacy);
-
-                Polaczenie polaczenie = new Polaczenie(watekNadajacy, watekOdbierajacy);
-
+                //TODO: ZROBIĆ DYNAMICZNE ZWIĘKSZANIE LISTY
                 for(int i=0; i<listaPolaczen.length; i++){
                     if(listaPolaczen[i] == null){
+                        listaPolaczen[i] = polaczenie;
+                        //break the loop
+                        i=listaPolaczen.length;
+                    }else if(!listaPolaczen[i].isActive()){
                         listaPolaczen[i] = polaczenie;
                         //break the loop
                         i=listaPolaczen.length;
