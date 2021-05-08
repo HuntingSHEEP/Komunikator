@@ -5,10 +5,17 @@ import java.net.Socket;
 
 public class Klient {
 
+    /*
     public static final String HOST = "127.0.0.1";
     public static final int[] PORT={50007, 50008, 50009, 50010};
     int[] flagiPortow = {0, 0, 0, 0}; //0: nie sprawdzano, 1:zajęty
     int liczbaPortow = 4;
+
+     */
+    public static final String HOST = "127.0.0.1";
+    public static final int[] PORT={50007};
+    int[] flagiPortow = {0}; //0: nie sprawdzano, 1:zajęty
+    int liczbaPortow = 1;
 
     Klient(){
         polaczSieZSerwerem();
@@ -48,7 +55,7 @@ public class Klient {
                 }
             }else{
                 i++;
-                i %= liczbaPortow;
+                //i %= liczbaPortow;
             }
             if (i >= liczbaPortow ){
                 for (int j = 0;j<liczbaPortow;j++){

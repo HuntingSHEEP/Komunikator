@@ -5,14 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Serwer  {
-    public static final int[] PORT={50007, 50008, 50009, 50010};
-    int[] flagiPortow = {0, 0, 0, 0}; //0: nie sprawdzano, 1:zajęty
-    int liczbaPortow = 4;
+    public static final int PORT=50007;
 
 
-    Nadawaj[] watkiNadajace = new Nadawaj[4];
-    Odbior[] watkiOdbierajace = new Odbior[4];
-
+    Polaczenie[] listaPolaczen = new Polaczenie[5];
 
 
     Serwer()  {
@@ -20,48 +16,60 @@ public class Serwer  {
     }
 
     private void obslugaPolaczen() {
-        int i = 0;
+        ServerSocket serv = null;
+        Socket sock = null;
+
+        try{
+            //tworzenie gniazda serwerowego
+            serv=new ServerSocket(PORT);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
 
         while(true){
-            if(flagiPortow[i] == 0){
-                try{
-                    //tworzenie gniazda serwerowego
-                    ServerSocket serv;
-                    serv=new ServerSocket(PORT[i]);
 
+            try{
+
+                try{
                     //oczekiwanie na polaczenie i tworzenie gniazda sieciowego
                     System.out.println("Nasluchuje: "+serv);
-                    Socket sock;
-
                     sock=serv.accept();
                     System.out.println("Jest polaczenie: "+sock);
-
-                    //tworzenie wątku nadającego
-                    //nadaj(sock);
-
-                    Nadawaj watekNadajacy = new Nadawaj(sock);
-                    watekNadajacy.start();
-
-                    //tworzenie watka odbierajacego
-                    //odbior(sock);
-
-                    Odbior watekOdbierajacy = new Odbior(sock);
-                    watekOdbierajacy.setWatekNadajacy(watekNadajacy);
-                    watekNadajacy.podajWatekOdbierajacy(watekOdbierajacy);
-                    watekOdbierajacy.start();
-
-                    watkiNadajace[i] = watekNadajacy;
-                    watkiOdbierajace[i] = watekOdbierajacy;
-
-                    flagiPortow[i] = 1;
-
                 }catch (Exception e){
-                    e.printStackTrace();
+                    System.out.println("Try accept " + e);
                 }
-            }else{
-                i++;
-                i %= liczbaPortow;
+
+
+
+                //tworzenie wątku nadającego
+                Nadawaj watekNadajacy = new Nadawaj(sock);
+                watekNadajacy.start();
+
+                //tworzenie watka odbierajacego
+                Odbior watekOdbierajacy = new Odbior(sock);
+                watekOdbierajacy.start();
+
+                //wzajemne przekazanie referancji
+                watekOdbierajacy.setWatekNadajacy(watekNadajacy);
+                watekNadajacy.podajWatekOdbierajacy(watekOdbierajacy);
+
+                Polaczenie polaczenie = new Polaczenie(watekNadajacy, watekOdbierajacy);
+
+                for(int i=0; i<listaPolaczen.length; i++){
+                    if(listaPolaczen[i] == null){
+                        listaPolaczen[i] = polaczenie;
+                        //break the loop
+                        i=listaPolaczen.length;
+                    }
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
+
+
         }
 
     }
