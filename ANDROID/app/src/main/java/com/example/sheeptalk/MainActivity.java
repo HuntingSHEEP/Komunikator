@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.sheeptalk.logic.klient.AsyncClient;
 import com.example.sheeptalk.logic.klient.Klient;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,10 +13,12 @@ public class MainActivity extends AppCompatActivity {
     TextView textHello;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        klient = new Klient();
+        Klient klient = new Klient();
+        new AsyncClient().execute(klient);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textHello = (TextView) findViewById(R.id.hello);
-        textHello.setText("XD");
+        textHello.setText("XDD"+klient.wiadomosc);
     }
 }

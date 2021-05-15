@@ -5,16 +5,17 @@ import java.net.Socket;
 
 public class Klient {
 
-    public static final String HOST = "127.0.0.1";
+    public static final String HOST = "192.168.0.103";
     public static final int PORT=50007;
-    public String wiadomosc = "XD";
+    public String wiadomosc = "\n XD";
 
 
     public Klient(){
-        polaczSieZSerwerem();
+        //polaczSieZSerwerem();
     }
 
-    private void polaczSieZSerwerem() {
+
+    public void polaczSieZSerwerem() {
         int i = 0;
         boolean flagaPetli = true;
 
