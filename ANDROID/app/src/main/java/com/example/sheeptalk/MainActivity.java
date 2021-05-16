@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.example.sheeptalk.logic.klient.AsyncClient;
 import com.example.sheeptalk.logic.klient.Klient;
+import com.example.sheeptalk.logic.klient.NadawajK;
+import com.example.sheeptalk.logic.klient.OdbiorK;
 
 public class MainActivity extends AppCompatActivity {
     Klient klient;
@@ -20,5 +22,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         textHello = (TextView) findViewById(R.id.hello);
         textHello.setText("XDD"+klient.wiadomosc);
+
+        NadawajK nadawanie = klient.getWatekNadajacy();
+        OdbiorK odbieranie = klient.getWatekOdbierajacy();
+
+
     }
 }

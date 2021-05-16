@@ -3,7 +3,7 @@ package com.example.sheeptalk.logic.klient;
 import java.io.*;
 import java.net.Socket;
 
-class NadawajK extends Thread
+public class NadawajK extends Thread
 {
     Socket sock;
     BufferedReader klaw;

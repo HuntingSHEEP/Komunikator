@@ -13,15 +13,17 @@ public class SerwerMain
 
    public static void main(String args[]) throws IOException
    {
-      //Serwer serwer = new Serwer();
+      Serwer serwer = new Serwer();
 
       Baza baza = new Baza();
-      baza.initializeBase();
 
+      /*
+      baza.initializeBase();
       baza.ddl("insert into klienci values(0, 'Krzys', '123')");
       baza.ddl("insert into klienci values(1, 'Owca', '123')");
       baza.ddl("insert into klienci values(2, 'Baran', '123')");
       baza.ddl("insert into klienci values(3, 'Ciele', '123')");
+       */
 
       ResultSet wynikZapytania = baza.dml("select * from klienci");
       try{

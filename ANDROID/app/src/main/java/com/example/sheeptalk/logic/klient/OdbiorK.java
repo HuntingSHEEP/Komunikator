@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.charset.Charset;
 
-class OdbiorK extends Thread
+public class OdbiorK extends Thread
 {
     String str;
     Socket sock;
