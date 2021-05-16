@@ -11,33 +11,7 @@ public class Baza {
     Statement statement;
 
     public Baza(){
-
         createConnection();
-
-        try
-        {
-            // create a database connection
-
-
-
-            statement.executeUpdate("insert into person values(1, 'leo')");
-            statement.executeUpdate("insert into person values(2, 'yui')");
-
-            ResultSet rs = statement.executeQuery("select * from person");
-            while(rs.next())
-            {
-                // read the result set
-                System.out.println("name = " + rs.getString("name") + "; id = " + rs.getInt("id"));
-            }
-        }
-        catch(SQLException e)
-        {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
-        }
-
-
     }
 
     private void createConnection() {
@@ -65,7 +39,7 @@ public class Baza {
         }
     }
 
-    private boolean initializeBase(){
+    public boolean initializeBase(){
         try{
             statement.executeUpdate("drop table if exists person");
             statement.executeUpdate("create table person (id integer, name string)");
@@ -88,9 +62,9 @@ public class Baza {
 
     public ResultSet dml(String sql){
         ResultSet rs = null;
-        
+
         try{
-            rs = statement.executeQuery("select * from person");
+            rs = statement.executeQuery(sql);
         }catch (Exception e){
             e.printStackTrace();
         }
