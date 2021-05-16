@@ -17,15 +17,16 @@ public class SerwerMain
 
       Baza baza = new Baza();
       baza.initializeBase();
-      baza.ddl("insert into person values(1, 'Krzys')");
-      baza.ddl("insert into person values(2, 'Natalia')");
-      baza.ddl("insert into person values(3, 'Owca')");
-      baza.ddl("insert into person values(4, 'COOOOOO')");
 
-      ResultSet wynikZapytania = baza.dml("select * from person");
+      baza.ddl("insert into klienci values(0, 'Krzys', '123')");
+      baza.ddl("insert into klienci values(1, 'Owca', '123')");
+      baza.ddl("insert into klienci values(2, 'Baran', '123')");
+      baza.ddl("insert into klienci values(3, 'Ciele', '123')");
+
+      ResultSet wynikZapytania = baza.dml("select * from klienci");
       try{
          while(wynikZapytania.next()){
-            System.out.println("name = " + wynikZapytania.getString("name") + "; id = " + wynikZapytania.getInt("id"));
+            System.out.println("name = " + wynikZapytania.getString("name") + "; id = " + wynikZapytania.getInt("id") + "; pass = " + wynikZapytania.getString("pass"));
          }
       }catch (Exception e){}
 
