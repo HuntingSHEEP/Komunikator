@@ -28,7 +28,8 @@ public class SerwerMain
       ResultSet wynikZapytania = baza.dml("select * from klienci");
       try{
          while(wynikZapytania.next()){
-            System.out.println("name = " + wynikZapytania.getString("name") + "; id = " + wynikZapytania.getInt("id") + "; pass = " + wynikZapytania.getString("pass"));
+            System.out.println("name = " + wynikZapytania.getString("name") + "; id = " +
+                    wynikZapytania.getInt("id") + "; pass = " + wynikZapytania.getString("pass"));
          }
       }catch (Exception e){}
 
