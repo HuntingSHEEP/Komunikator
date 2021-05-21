@@ -1,42 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="725ab944-4940-4118-af61-ed182ffb0c71" name="Default Changelist" comment="nie działa zabijanie klienta od strony serwera">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Komunikator.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Komunikator/klient/Klient.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Komunikator/klient/NadawajK.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Komunikator/klient/OdbiorK.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Komunikator/serwer/Nadawaj.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Komunikator/serwer/Odbior.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Komunikator/serwer/Serwer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/klient/Klient.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/klient/KlientMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/klient/NadawajK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/klient/OdbiorK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serwer/Nadawaj.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serwer/Odbior.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serwer/Polaczenie.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serwer/Serwer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serwer/SerwerMain.java" beforeDir="false" />
+    <list default="true" id="8a0f43c8-62c0-49c6-aad4-ead1f40b72c2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ANDROID/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ANDROID/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ANDROID/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ANDROID/.idea/vcs.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1s52noIcecG7zmzEVgQw2FeHx3m" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1sccRWt2eX8XQgthFzzScri5Xhm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -45,181 +30,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/INTELLIJ" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="serwer" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.KlientMain">
-    <configuration name="Klient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="klient.Klient" />
-      <module name="Komunikator" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="KlientMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="klient.KlientMain" />
-      <module name="Komunikator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="klient.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Serwer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="serwer.Serwer" />
-      <module name="Komunikator" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SerwerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="serwer.SerwerMain" />
-      <module name="Komunikator" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="serwer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.KlientMain" />
-        <item itemvalue="Application.SerwerMain" />
-        <item itemvalue="Application.Klient" />
-        <item itemvalue="Application.Serwer" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="725ab944-4940-4118-af61-ed182ffb0c71" name="Default Changelist" comment="" />
-      <created>1620148301569</created>
+      <changelist id="8a0f43c8-62c0-49c6-aad4-ead1f40b72c2" name="Default Changelist" comment="" />
+      <created>1621175328278</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1620148301569</updated>
+      <updated>1621175328278</updated>
     </task>
-    <task id="LOCAL-00001" summary="initial commit">
-      <created>1620150568411</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1620150568411</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Komunikator.iml">
-      <created>1620151628037</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1620151628037</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Komunikator.iml">
-      <created>1620152243052</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1620152243052</updated>
-    </task>
-    <task id="LOCAL-00004" summary="zabijanie klienta xD">
-      <created>1620400431486</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1620400431486</updated>
-    </task>
-    <task id="LOCAL-00005" summary="częsciowe zabiajnie wszystkiego">
-      <created>1620404624638</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1620404624638</updated>
-    </task>
-    <task id="LOCAL-00006" summary="zabijanie wszystkiego z poziomu klienta">
-      <created>1620406896369</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1620406896369</updated>
-    </task>
-    <task id="LOCAL-00007" summary="zabijanie wszystkiego w obie strony">
-      <created>1620408356716</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1620408356716</updated>
-    </task>
-    <task id="LOCAL-00008" summary="oj sporo zmian">
-      <created>1620468586439</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1620468586439</updated>
-    </task>
-    <task id="LOCAL-00009" summary="serwer poprawki">
-      <created>1620478194127</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1620478194127</updated>
-    </task>
-    <task id="LOCAL-00010" summary="serwer poprawki">
-      <created>1620478997691</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1620478997691</updated>
-    </task>
-    <task id="LOCAL-00011" summary="nie działa zabijanie klienta od strony serwera">
-      <created>1620481671086</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1620481671086</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="initial commit" />
-    <MESSAGE value="Komunikator.iml" />
-    <MESSAGE value="zabijanie klienta xD" />
-    <MESSAGE value="częsciowe zabiajnie wszystkiego" />
-    <MESSAGE value="zabijanie wszystkiego z poziomu klienta" />
-    <MESSAGE value="zabijanie wszystkiego w obie strony" />
-    <MESSAGE value="oj sporo zmian" />
-    <MESSAGE value="serwer poprawki" />
-    <MESSAGE value="nie działa zabijanie klienta od strony serwera" />
-    <option name="LAST_COMMIT_MESSAGE" value="nie działa zabijanie klienta od strony serwera" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Komunikator$SerwerMain.ic" NAME="SerwerMain Coverage Results" MODIFIED="1620482779523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>serwer.*</FILTER>
-    </SUITE>
   </component>
 </project>

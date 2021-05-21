@@ -20,9 +20,4 @@ public class AsyncClient extends AsyncTask<Klient, Integer, Integer> {
     protected void onProgressUpdate(Integer... progress) {
 
     }
-
-
-
-
-
 }

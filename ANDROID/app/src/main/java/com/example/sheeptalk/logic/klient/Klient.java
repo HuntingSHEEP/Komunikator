@@ -7,7 +7,7 @@ public class Klient {
     private NadawajK nadawanie;
     private OdbiorK odbieranie;
 
-    public static final String HOST = "192.168.0.103";
+    public static final String HOST = "192.168.56.1";
     public static final int PORT=50007;
     public String wiadomosc = "\n XD";
 

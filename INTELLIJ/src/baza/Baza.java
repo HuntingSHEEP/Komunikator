@@ -41,8 +41,13 @@ public class Baza {
 
     public boolean initializeBase(){
         String[] komendy = new String[10];
-        komendy[0] = "create table klienci (id integer not null primary key, name string, pass string)";
-        komendy[1] = "create table rozmowy (id string not null primary key, name string, idkl0 integer, foreign key (idkl0) references klienci (id))";
+        komendy[0] = "create table klienci (" +
+                "id integer not null primary key, " +
+                "name string, " +
+                "pass string)";
+        komendy[1] = "create table rozmowy (id string not null primary key, " +
+                "name string, idkl0 integer, " +
+                "foreign key (idkl0) references klienci (id))";
 
         String[] dropTables = new String[10];
         dropTables[0] = "drop table if exists rozmowy";
