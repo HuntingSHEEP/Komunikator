@@ -35,4 +35,25 @@ public class Polaczenie {
     public boolean isActive(){
         return isActive;
     }
+
+    public Nadawaj getWatekNadajacy(){
+        return  watekNadajacy;
+    }
+
+    public Odbior getWatekOdbierajacy(){
+        return watekOdbierajacy;
+    }
+
+
+    public boolean newMessage() {
+        return watekOdbierajacy.newMessage();
+    }
+
+    public String getMessage() {
+        return watekOdbierajacy.getMessage();
+    }
+
+    public void sendMessage(String message) {
+        watekNadajacy.sendMessage(message);
+    }
 }

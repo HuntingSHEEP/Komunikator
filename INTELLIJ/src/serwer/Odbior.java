@@ -14,6 +14,8 @@ class Odbior extends Thread
     InputStream is;
     boolean isRunning = true;
     Nadawaj watekNadajacy;
+    private String bufor;
+
 
 
     public Odbior(Socket sock) throws IOException
@@ -21,6 +23,7 @@ class Odbior extends Thread
         this.sock=sock;
         this.inp=new BufferedReader(new InputStreamReader(sock.getInputStream()));
         this.is = sock.getInputStream();
+        this.bufor = "";
     }
 
     public void setWatekNadajacy(Nadawaj nadajacy){
@@ -43,13 +46,16 @@ class Odbior extends Thread
 
                 if(result > 0){
                     str = new String(inputData).substring(0, result - 1);
-                    System.out.println("<Nadeszlo:> result [" + result + "] " + str);
+                    //System.out.println("<Nadeszlo:> result [" + result + "] " + str);
+
+                    this.bufor += str;
+                    //System.out.println("ZAWARTOŚĆ BUFORA: "+bufor);
+
                     if(str.equalsIgnoreCase("exit")){
                         watekNadajacy.killME();
                         System.out.println("OEXIT");
                         break;
                     }
-
                 }
             }
 
@@ -57,4 +63,17 @@ class Odbior extends Thread
 
     }
 
+    public boolean newMessage() {
+        return bufor.length() > 0;
+    }
+
+
+    public String getMessage() {
+        //System.out.println("Przed wysłaniem zawartości bufora: " + bufor);
+        String dane = bufor;
+        bufor = "";
+        //System.out.println("Bufor po skopiowaniu i wyzerowanieu: " + bufor);
+        //System.out.println("Wysłano: " + dane);
+        return  dane;
+    }
 }

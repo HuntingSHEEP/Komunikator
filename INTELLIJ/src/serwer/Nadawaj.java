@@ -14,6 +14,7 @@ class Nadawaj extends Thread
     Odbior watekOdbierajacy;
     boolean isRunning = true;
     InputStream is;
+    String bufor;
 
     public void podajWatekOdbierajacy(Odbior odbior){
         this.watekOdbierajacy = odbior;
@@ -25,7 +26,7 @@ class Nadawaj extends Thread
         this.klaw=new BufferedReader(new InputStreamReader(System.in));
         this.outp=new PrintWriter(sock.getOutputStream());
         this.is = System.in;
-
+        this.bufor = "";
     }
 
     public void run()
@@ -33,15 +34,22 @@ class Nadawaj extends Thread
         try{
             while (isRunning){
 
-                //System.out.println("<Wysylamy:> ");
-                //str=klaw.readLine();
+                //byte[] inputData = new byte[1024];
+                //int result = is.read(inputData, 0, is.available());
 
-                byte[] inputData = new byte[1024];
-                int result = is.read(inputData, 0, is.available());
+                int result = bufor.length();
+                //System.out.println("Bufor ["+bufor+"] "+ result);
+                //System.out.println(bufor+"; "+bufor.length());
+                if(bufor.length() > 0){
+                    System.out.println(bufor+"; "+bufor.length());
+                }
 
                 if (result > 0){
-                    str = new String(inputData);
-                    str = str.substring(0, result - 1);
+                    //str = new String(inputData);
+                    //str = str.substring(0, result - 1);
+                    str = bufor;
+                    //bufor = "";
+
                     System.out.println("<Wysyłamy:> result [" + result + "] " + str);
 
                     if(str.equalsIgnoreCase("exit")){
@@ -57,15 +65,9 @@ class Nadawaj extends Thread
                     outp.println(str);
                     outp.flush();
                 }
-
-
             }
         }catch(Exception e){System.out.println("Yolooooo XD. ");
         e.printStackTrace();}
-
-
-
-
     }
 
     private void killOdbior() {
@@ -74,5 +76,12 @@ class Nadawaj extends Thread
 
     public void killME(){
         isRunning = false;
+    }
+
+    public void sendMessage(String message) {
+        this.bufor = message;
+        outp.println(this.bufor);
+        outp.flush();
+        System.out.println("wyslano: "+message+";length: "+this.bufor.length());
     }
 }

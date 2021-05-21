@@ -1,21 +1,27 @@
 package serwer;
 
+import baza.Baza;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Serwer  {
     public static final int PORT=50007;
+    Polaczenie[] listaPolaczen;
+    ManagerPolaczen managerPolaczen;
+    Baza bazaDanych;
 
+    Serwer(Baza baza)  {
+        bazaDanych = baza;
+        listaPolaczen = new Polaczenie[5];
+        managerPolaczen = new ManagerPolaczen(listaPolaczen, bazaDanych);
+        managerPolaczen.start();
 
-    Polaczenie[] listaPolaczen = new Polaczenie[5];
-
-
-    Serwer()  {
-        obslugaPolaczen();
+        akceptowaniePolaczen();
     }
 
-    private void obslugaPolaczen() {
+    private void akceptowaniePolaczen() {
         ServerSocket serv = null;
         Socket sock = null;
 
@@ -26,11 +32,8 @@ public class Serwer  {
             e.printStackTrace();
         }
 
-
         while(true){
-
             try{
-
                 try{
                     //oczekiwanie na polaczenie i tworzenie gniazda sieciowego
                     System.out.println("Nasluchuje: "+serv);
@@ -58,7 +61,6 @@ public class Serwer  {
             }catch (Exception e){
                 e.printStackTrace();
             }
-
         }
 
     }

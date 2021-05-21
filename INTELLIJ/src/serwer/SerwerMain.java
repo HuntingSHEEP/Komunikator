@@ -13,8 +13,11 @@ public class SerwerMain
 
    public static void main(String args[]) throws IOException
    {
-      Serwer serwer = new Serwer();
+      Baza baza = new Baza();
+      Serwer serwer = new Serwer(baza);
+   }
 
+   private void testBazy(){
       Baza baza = new Baza();
 
       /*
