@@ -2,6 +2,7 @@ package serwer;
 
 import baza.Baza;
 
+import java.security.spec.ECField;
 import java.sql.ResultSet;
 
 public class NarzedziaPolaczen {
@@ -37,30 +38,41 @@ public class NarzedziaPolaczen {
         return state;
     }
 
-    public void responseRequest(Polaczenie polaczenie, String msg, Baza baza) {
+    public void responseRequest(Polaczenie polaczenie, String msg, Baza baza, int krag) {
         /*-----REAGOWANIE NA PRZYSŁANE ŻĄÐANIA
-         *
+         * KRĄG -1 TO KLIENT
          */
-
         int numer = Integer.parseInt(msg.substring(4, 7));
         String data = msg.substring(7, msg.length()-4);
+        boolean polecenie = false;
 
-        System.out.println("Przyjęto polecenie "+numer+", DATA: ["+data+"]");
+        if(krag == 1){
+            switch (numer){
+                case 9:
+                    boolean zalogowano = command9(polaczenie, data, baza);
+                    if(zalogowano){
+                        command0(polaczenie);
+                    }else{
+                        command1(polaczenie);
+                    }
+                    polecenie = true;
+                    break;
+            }
 
-        switch (numer){
-            case 9:
-                boolean zalogowano = command9(polaczenie, data, baza);
-                if(zalogowano){
-                    command0(polaczenie);
-                }else{
-                    command1(polaczenie);
-                }
-                break;
+        }else if(krag == 2){
+            switch (numer){
+                case 10:
+                    command10(polaczenie, baza);
+                    polecenie = true;
+                    break;
+            }
 
-            case 10:
-                command10(polaczenie, baza);
-                break;
         }
+
+        if(polecenie){
+            //System.out.println("Przyjęto polecenie "+numer+", DATA: ["+data+", ID: "+polaczenie.getID());
+        }
+
     }
 
 
@@ -143,8 +155,45 @@ public class NarzedziaPolaczen {
 
     private void command10(Polaczenie polaczenie, Baza baza) {
         //OBSŁUGA ŻĄDANIA INFORMACJI O POKOJACH UŻYTKOWNIKA
+        int usrID = polaczenie.getID();
 
-        System.out.println("ŻĄDANIE 10, KRĄG "+polaczenie.getKRAG());
+        // *) Przeszukanie tabeli KLIENT
+        String pokoje = "(select ID_POKOJ from KLIENT_POKOJ where ID_KLIENT = "+usrID+")";
+
+        //Wpierw sprawdzimy ilość rekordów
+        String zapytanieILOSC = "select count(*) ILOSC from KLIENT_POKOJ kp, "+pokoje+" p where kp.ID_POKOJ = p.ID_POKOJ AND kp.ID_KLIENT != "+usrID;
+        ResultSet wynikZapytaniaILOSC = baza.dml(zapytanieILOSC);
+        try{
+            int iloscRekordow;
+
+            while(wynikZapytaniaILOSC.next()){
+                iloscRekordow = wynikZapytaniaILOSC.getInt("ILOSC");
+                System.out.println("ILOSĆ REKORDOW: "+ iloscRekordow);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //Teraz odpytamy bazę
+        //TODO: Teoretyczna dziura: a co w przypadku kiedy to jest jeden pokój z wyłącznie z jednym użytkownikiem? Przecież tego pokoju zapytanie nie wyłapie!
+        String zapytanie = "select kp.ID_POKOJ, kp.ID_KLIENT from KLIENT_POKOJ kp, "+pokoje+" p where kp.ID_POKOJ = p.ID_POKOJ AND kp.ID_KLIENT != "+usrID;
+        ResultSet wynikZapytania = baza.dml(zapytanie);
+        try{
+            int tableID_POKOJ;
+            int tableID_KLIENT;
+            String tablePOKOJ_NAZWA;
+            String tableKLIENT_NAZWA;
+
+            while(wynikZapytania.next()){
+                tableID_POKOJ = wynikZapytania.getInt("ID_POKOJ");
+                tableID_KLIENT = wynikZapytania.getInt("ID_KLIENT");
+                System.out.println("ID_POKOJ: "+tableID_POKOJ+", ID_KLIENT: "+tableID_KLIENT);
+
+
+            }
+        }catch (Exception e){}
+
+
     }
 
 }

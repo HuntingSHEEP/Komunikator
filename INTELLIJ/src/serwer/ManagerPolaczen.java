@@ -42,7 +42,7 @@ public class ManagerPolaczen extends Thread{
 
                                     if(narzedzia.isRequest(wiadomosc)){
                                         //wiadomość jest komendą
-                                        narzedzia.responseRequest(polaczenie, wiadomosc, baza);
+                                        narzedzia.responseRequest(polaczenie, wiadomosc, baza, 1);
                                     }
                                 }
                         //    }
