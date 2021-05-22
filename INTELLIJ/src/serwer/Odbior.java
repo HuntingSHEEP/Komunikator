@@ -69,6 +69,7 @@ class Odbior extends Thread
 
 
     public String getMessage() {
+        //TODO: WYSYŁANIE JEDNEJ WIADOMOŚCI CZYLI DO R#!* DO #END
         //System.out.println("Przed wysłaniem zawartości bufora: " + bufor);
         String dane = bufor;
         bufor = "";

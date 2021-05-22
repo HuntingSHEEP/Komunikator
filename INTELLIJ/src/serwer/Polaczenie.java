@@ -10,12 +10,15 @@ public class Polaczenie {
     private int ID;
     private String NAZWA;
 
+    private int KRAG;
+
     Polaczenie(Nadawaj watekNadajacy, Odbior watekOdbierajacy){
         this.watekNadajacy = watekNadajacy;
         this.watekOdbierajacy = watekOdbierajacy;
         this.isActive = true;
         this.ID = -1;
         this.NAZWA = null;
+        this.KRAG = -1;
     }
 
     Polaczenie(Socket sock) throws IOException {
@@ -36,6 +39,15 @@ public class Polaczenie {
         this.isActive = true;
         this.ID = -1;
         this.NAZWA = null;
+        this.KRAG = -1;
+    }
+
+    public int getKRAG(){
+        return this.KRAG;
+    }
+
+    public void setKRAG(int krag){
+        this.KRAG = krag;
     }
 
     public void setID(int id){

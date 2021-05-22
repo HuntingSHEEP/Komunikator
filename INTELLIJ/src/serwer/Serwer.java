@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Serwer  {
+    //KRĄG 0 ZARZĄDZANIA
+
     public static final int PORT=50007;
     Polaczenie[] listaPolaczen;
     ManagerPolaczen managerPolaczen;
@@ -33,6 +35,8 @@ public class Serwer  {
         }
 
         while(true){
+            //KRĄG 0 - Akceptowanie połączeń
+
             try{
                 try{
                     //oczekiwanie na polaczenie i tworzenie gniazda sieciowego
@@ -44,8 +48,10 @@ public class Serwer  {
                 }
 
                 Polaczenie polaczenie = new Polaczenie(sock);
+                polaczenie.setKRAG(1);
 
-                //TODO: ZROBIĆ DYNAMICZNE ZWIĘKSZANIE LISTY
+                //TODO: ZROBIĆ DYNAMICZNE ZWIĘKSZANIE LISTY, inaczej się połączy a nie zapisze do listy jeśli jest już zapełniona
+
                 for(int i=0; i<listaPolaczen.length; i++){
                     if(listaPolaczen[i] == null){
                         listaPolaczen[i] = polaczenie;
