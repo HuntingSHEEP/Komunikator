@@ -41,17 +41,39 @@ public class Baza {
 
     public boolean initializeBase(){
         String[] komendy = new String[10];
-        komendy[0] = "create table klienci (" +
-                "id integer not null primary key, " +
-                "name string, " +
-                "pass string)";
-        komendy[1] = "create table rozmowy (id string not null primary key, " +
-                "name string, idkl0 integer, " +
-                "foreign key (idkl0) references klienci (id))";
+        komendy[0] = "CREATE TABLE KLIENT (" +
+                "ID INTEGER NOT NULL PRIMARY KEY, " +
+                "IMIE STRING, " +
+                "PASS STRING)";
+
+        komendy[1] = "CREATE TABLE POKOJ (" +
+                "ID INTEGER PRIMARY KEY," +
+                "NAZWA STRING)";
+
+        komendy[2] = "CREATE TABLE KLIENT_POKOJ ("+
+                "ID_KLIENT INTEGER, " +
+                "ID_POKOJ INTEGER, " +
+                "PRIMARY KEY (ID_KLIENT, ID_POKOJ), " +
+                "FOREIGN KEY (ID_KLIENT) REFERENCES KLIENT (ID), " +
+                "FOREIGN KEY (ID_POKOJ) REFERENCES POKOJ (ID) )";
+
+        komendy[3] = "CREATE TABLE ROZMOWA (" +
+                "ROWID INTEGER, " +
+                "ID_POKOJU INTEGER, " +
+                "ID_UCZESTNIKA INTEGER, " +
+                "DATA DATE, " +
+                "TRESC STRING, " +
+                "PRIMARY KEY (ROWID), " +
+                "FOREIGN KEY (ID_POKOJU) REFERENCES POKOJ (ID), " +
+                "FOREIGN KEY (ID_UCZESTNIKA) REFERENCES KLIENT (ID) )";
+
 
         String[] dropTables = new String[10];
-        dropTables[0] = "drop table if exists rozmowy";
-        dropTables[1] = "drop table if exists klienci";
+
+        dropTables[3] = "drop table if exists KLIENT";
+        dropTables[2] = "drop table if exists POKOJ";
+        dropTables[1] = "drop table if exists KLIENT_POKOJ";
+        dropTables[0] = "drop table if exists ROZMOWA";
 
 
 
@@ -65,6 +87,7 @@ public class Baza {
             for(int i=0; i<komendy.length; i++){
                 if(komendy[i] != null){
                     statement.executeUpdate(komendy[i]);
+                    //System.out.println(komendy[i]);
                 }
             }
             return true;

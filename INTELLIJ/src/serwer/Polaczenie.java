@@ -7,11 +7,15 @@ public class Polaczenie {
     private Nadawaj watekNadajacy;
     private Odbior watekOdbierajacy;
     private boolean isActive;
+    private int ID;
+    private String NAZWA;
 
     Polaczenie(Nadawaj watekNadajacy, Odbior watekOdbierajacy){
         this.watekNadajacy = watekNadajacy;
         this.watekOdbierajacy = watekOdbierajacy;
         this.isActive = true;
+        this.ID = -1;
+        this.NAZWA = null;
     }
 
     Polaczenie(Socket sock) throws IOException {
@@ -30,6 +34,24 @@ public class Polaczenie {
         this.watekNadajacy = watekNadajacy;
         this.watekOdbierajacy = watekOdbierajacy;
         this.isActive = true;
+        this.ID = -1;
+        this.NAZWA = null;
+    }
+
+    public void setID(int id){
+        this.ID = id;
+    }
+
+    public int getID(){
+        return ID;
+    }
+
+    public void setNAZWA(String name){
+        this.NAZWA = name;
+    }
+
+    public String getNAZWA(){
+        return NAZWA;
     }
 
     public boolean isActive(){
