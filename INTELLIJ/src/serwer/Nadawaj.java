@@ -82,6 +82,6 @@ class Nadawaj extends Thread
         this.bufor = message;
         outp.println(this.bufor);
         outp.flush();
-        System.out.println("wyslano: "+message+";length: "+this.bufor.length());
+        //System.out.println("wyslano: "+message+";length: "+this.bufor.length());
     }
 }

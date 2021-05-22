@@ -163,35 +163,46 @@ public class NarzedziaPolaczen {
         //Wpierw sprawdzimy ilość rekordów
         String zapytanieILOSC = "select count(*) ILOSC from KLIENT_POKOJ kp, "+pokoje+" p where kp.ID_POKOJ = p.ID_POKOJ AND kp.ID_KLIENT != "+usrID;
         ResultSet wynikZapytaniaILOSC = baza.dml(zapytanieILOSC);
-        try{
-            int iloscRekordow;
 
+        int iloscRekordow = -1;
+        try{
             while(wynikZapytaniaILOSC.next()){
                 iloscRekordow = wynikZapytaniaILOSC.getInt("ILOSC");
-                System.out.println("ILOSĆ REKORDOW: "+ iloscRekordow);
+
             }
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        //Teraz odpytamy bazę
-        //TODO: Teoretyczna dziura: a co w przypadku kiedy to jest jeden pokój z wyłącznie z jednym użytkownikiem? Przecież tego pokoju zapytanie nie wyłapie!
-        String zapytanie = "select kp.ID_POKOJ, kp.ID_KLIENT from KLIENT_POKOJ kp, "+pokoje+" p where kp.ID_POKOJ = p.ID_POKOJ AND kp.ID_KLIENT != "+usrID;
-        ResultSet wynikZapytania = baza.dml(zapytanie);
-        try{
-            int tableID_POKOJ;
-            int tableID_KLIENT;
-            String tablePOKOJ_NAZWA;
-            String tableKLIENT_NAZWA;
+        if(0 <= iloscRekordow){
+            //Wysyłamy komendę 11 - Informacja o ilości nadchadzących paczek
+            System.out.println("ILOSĆ REKORDOW: "+ iloscRekordow);
+            polaczenie.sendMessage("R#!*011"+iloscRekordow+"#END");
 
-            while(wynikZapytania.next()){
-                tableID_POKOJ = wynikZapytania.getInt("ID_POKOJ");
-                tableID_KLIENT = wynikZapytania.getInt("ID_KLIENT");
-                System.out.println("ID_POKOJ: "+tableID_POKOJ+", ID_KLIENT: "+tableID_KLIENT);
+            //Teraz odpytamy bazę
+            //TODO: Teoretyczna dziura: a co w przypadku kiedy to jest jeden pokój z wyłącznie z jednym użytkownikiem? Przecież tego pokoju zapytanie nie wyłapie!
+            String zapytanie = "select kp.ID_POKOJ, kp.ID_KLIENT from KLIENT_POKOJ kp, "+pokoje+" p where kp.ID_POKOJ = p.ID_POKOJ AND kp.ID_KLIENT != "+usrID;
+            ResultSet wynikZapytania = baza.dml(zapytanie);
+            try{
+                int tableID_POKOJ;
+                int tableID_KLIENT;
+                String tablePOKOJ_NAZWA;
+                String tableKLIENT_NAZWA;
 
+                while(wynikZapytania.next()){
+                    tableID_POKOJ = wynikZapytania.getInt("ID_POKOJ");
+                    tableID_KLIENT = wynikZapytania.getInt("ID_KLIENT");
 
-            }
-        }catch (Exception e){}
+                    //wysyłamy komendę 12 - para ID_POKOJ oraz ID_KLIENT
+                    System.out.println("ID_POKOJ: "+tableID_POKOJ+", ID_KLIENT: "+tableID_KLIENT);
+                    polaczenie.sendMessage("R#!*012"+tableID_POKOJ+"!"+tableID_KLIENT+"#END");
+                }
+                //Wysłanie komendy 13 - Informacja o końcu wysyłania pakietów pokoju
+                polaczenie.sendMessage("R#!*013#END");
+
+            }catch (Exception e){}
+        }
+
 
 
     }
