@@ -27,7 +27,7 @@ public class ManagerUruchomienia extends Thread {
 
                                 if(narzedzia.isRequest(wiadomosc)){
                                     //wiadomość jest komendą
-                                    narzedzia.responseRequest(polaczenie, wiadomosc, baza, 2);
+                                    narzedzia.responseRequest(polaczenie, wiadomosc, baza);
                                 }
                             }
                         }

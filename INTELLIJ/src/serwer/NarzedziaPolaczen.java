@@ -38,15 +38,17 @@ public class NarzedziaPolaczen {
         return state;
     }
 
-    public void responseRequest(Polaczenie polaczenie, String msg, Baza baza, int krag) {
+    public void responseRequest(Polaczenie polaczenie, String msg, Baza baza) {
         /*-----REAGOWANIE NA PRZYSŁANE ŻĄÐANIA
          * KRĄG -1 TO KLIENT
+         * METODA SPRAWDZA W KTÓRYM KRĘGU ZNAJDUJE SIĘ KLIENT I W ZALEŻNOŚCI
+         * OD TEGO UDOSTĘPNIA KOMENDY
          */
         int numer = Integer.parseInt(msg.substring(4, 7));
         String data = msg.substring(7, msg.length()-4);
         boolean polecenie = false;
 
-        if(krag == 1){
+        if(polaczenie.getKRAG() == 1){
             switch (numer){
                 case 9:
                     boolean zalogowano = command9(polaczenie, data, baza);
@@ -59,22 +61,68 @@ public class NarzedziaPolaczen {
                     break;
             }
 
-        }else if(krag == 2){
+        }else if(polaczenie.getKRAG() == 2){
             switch (numer){
                 case 10:
                     command10(polaczenie, baza);
                     polecenie = true;
+                    break;
+
+                case 14:
+                    command14(polaczenie, data, baza);
                     break;
             }
 
         }
 
         if(polecenie){
+            //raczej w błąd wprowadza bo pokazuje status Kręgu po wykomaniu akcji a nie przed
             //System.out.println("Przyjęto polecenie "+numer+", DATA: ["+data+", ID: "+polaczenie.getID());
         }
 
     }
 
+    private String[] cutTheData(String data){
+        /* Zwraca dane zapisane do pierwszego wykrzyknika!
+         * przydałoby sie sprawdzać poprawność data i wyrzucać błąd
+         */
+
+        //TODO: uwzględnianie znaków specjalnych w wiadomościach >> \ jako wyłączenie znaku specjalnego
+
+        //ZLICZANIE ILOŚCI WYKRZYKNIKÓW
+        int exclamationCount = 0;
+        for(int i=0; i<data.length(); i++){
+            if(data.charAt(i) == '!'){
+                exclamationCount++;
+            }
+        }
+
+        //PRZYGOTOWANIE LISTY
+        String[] output = new String[exclamationCount+1];
+
+        //WYCIĘCIE DANYCH
+        String temporary = "";
+        int index = 0;
+        for(int i=0; i<data.length(); i++){
+            if(data.charAt(i) == '!'){
+                //System.out.println("WYCIĘTO "+index+": ["+temporary+"]");
+                output[index] = temporary;
+                temporary = "";
+                index++;
+            }else{
+                temporary += data.charAt(i);
+            }
+            if(i == data.length()-1){
+                //System.out.println("WYCIĘTO "+index+": ["+temporary+"]");
+                output[index] = temporary;
+                temporary = "";
+                index++;
+            }
+        }
+
+
+        return output;
+    }
 
 
     private void command0(Polaczenie polaczenie){
@@ -154,7 +202,9 @@ public class NarzedziaPolaczen {
     }
 
     private void command10(Polaczenie polaczenie, Baza baza) {
-        //OBSŁUGA ŻĄDANIA INFORMACJI O POKOJACH UŻYTKOWNIKA
+        /* OBSŁUGA ŻĄDANIA INFORMACJI O POKOJACH UŻYTKOWNIKA + ID INNYCH UCZESTNIKOW
+         *
+         */
         int usrID = polaczenie.getID();
 
         // *) Przeszukanie tabeli KLIENT
@@ -177,7 +227,7 @@ public class NarzedziaPolaczen {
         if(0 <= iloscRekordow){
             //Wysyłamy komendę 11 - Informacja o ilości nadchadzących paczek
             System.out.println("ILOSĆ REKORDOW: "+ iloscRekordow);
-            polaczenie.sendMessage("R#!*011"+iloscRekordow+"#END");
+            command11(polaczenie, iloscRekordow);
 
             //Teraz odpytamy bazę
             //TODO: Teoretyczna dziura: a co w przypadku kiedy to jest jeden pokój z wyłącznie z jednym użytkownikiem? Przecież tego pokoju zapytanie nie wyłapie!
@@ -195,16 +245,77 @@ public class NarzedziaPolaczen {
 
                     //wysyłamy komendę 12 - para ID_POKOJ oraz ID_KLIENT
                     System.out.println("ID_POKOJ: "+tableID_POKOJ+", ID_KLIENT: "+tableID_KLIENT);
-                    polaczenie.sendMessage("R#!*012"+tableID_POKOJ+"!"+tableID_KLIENT+"#END");
+                    command12(polaczenie, tableID_POKOJ, tableID_KLIENT);
                 }
                 //Wysłanie komendy 13 - Informacja o końcu wysyłania pakietów pokoju
-                polaczenie.sendMessage("R#!*013#END");
+                command13(polaczenie);
+
 
             }catch (Exception e){}
         }
+    }
 
+    private void command11(Polaczenie polaczenie, int iloscRekordow){
+        polaczenie.sendMessage("R#!*011"+iloscRekordow+"#END");
+    }
 
+    private void command12(Polaczenie polaczenie, int tableID_POKOJ, int tableID_KLIENT) {
+        polaczenie.sendMessage("R#!*012"+tableID_POKOJ+"!"+tableID_KLIENT+"#END");
+    }
 
+    private void command13(Polaczenie polaczenie) {
+        polaczenie.sendMessage("R#!*013#END");
+    }
+
+    private void command14(Polaczenie polaczenie, String data, Baza baza) {
+        /* ŻĄDANIE INFORMACJI O KONKRETNYM UŻYTKOWNIKU
+         * 1) SPRAWDZANIE POPRAWNOŚCI DANYCH
+         * 2) JEŻELI WYSTĄPI BŁĄD, WYSYŁAMY KOMUNIKAT 1 - ERROR
+         */
+
+        int ID_KLIENT, DATA_TYPE;
+
+        //TODO: zrobić takie samo sprawdzanie poprawności danych w komendzie 9
+        //1) SPRAWDZANIE POPRAWNOŚCI DANYCH
+        try{
+            String[] dane = cutTheData(data);
+            ID_KLIENT = Integer.parseInt(dane[0]);
+            DATA_TYPE = Integer.parseInt(dane[1]);
+        }catch (Exception e){
+            e.printStackTrace();
+            // 2) JEŻELI WYSTĄPI BŁĄD, WYSYŁAMY KOMUNIKAT 1 - ERROR
+            // WYSYPIE SIĘ W NASTĘPUJĄCYCH PRZYPADKACH: [], [!], [0!], [!0]
+            // WIĘCEJ NIE TESTOWANO
+            command1(polaczenie);
+            return;
+        }
+
+        //3) SPRAWDZENIE TYPU POLECENIA - O KTÓRE DANE Z TABELI CHODZI
+        String kolumna = "";
+        switch (DATA_TYPE){
+            case 0:
+                kolumna = "IMIE";
+                break;
+        }
+
+        //4) Przeszukanie tabeli KLIENT
+        ResultSet wynikZapytania = baza.dml("select "+kolumna+" from KLIENT where ID = "+ID_KLIENT);
+        try{
+            String tableDANE;
+            while(wynikZapytania.next()){
+                tableDANE = wynikZapytania.getString(kolumna);
+                //WYSŁANIE DANYCH - KOMENDA 15
+                command15(polaczenie, ID_KLIENT, DATA_TYPE, tableDANE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            // JEŻELI WYSTĄPI BŁĄD
+            command1(polaczenie);
+        }
+    }
+
+    private void command15(Polaczenie polaczenie, int idKlient, int dataType, String desiredData) {
+        polaczenie.sendMessage("R#!*015"+idKlient+"!"+dataType+"!"+desiredData+"#END");
     }
 
 }
