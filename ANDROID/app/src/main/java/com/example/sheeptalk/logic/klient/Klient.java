@@ -2,13 +2,16 @@ package com.example.sheeptalk.logic.klient;
 
 import java.net.Socket;
 
+import static java.lang.Thread.sleep;
+
 public class Klient {
     //private Nadawaj nadawanie;
     //private Odbior odbieranie;
     private Polaczenie polaczenie;
     private Tools tools;
 
-    public static final String HOST = "192.168.56.1";
+    //public static final String HOST = "192.168.56.1";
+    public static final String HOST = "192.168.0.102";
     public static final int PORT=50007;
     public String wiadomosc = "\n XD";
 
@@ -53,7 +56,14 @@ public class Klient {
                 Socket sock;
                 sock=new Socket(HOST,PORT);
                 polaczenie = new Polaczenie(sock);
+                flagaPetli = false;
             }catch (Exception E  ){};
+
+            try{
+                sleep(1);
+            }catch (Exception e){
+
+            }
         }
 
     }

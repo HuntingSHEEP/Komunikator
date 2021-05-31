@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static java.lang.Thread.sleep;
+
 public class Serwer  {
     //KRĄG 0 ZARZĄDZANIA
 
@@ -64,9 +66,13 @@ public class Serwer  {
                     }
                 }
 
+                sleep(1);
+
             }catch (Exception e){
                 e.printStackTrace();
             }
+
+
         }
 
     }

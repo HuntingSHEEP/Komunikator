@@ -33,6 +33,8 @@ public class ManagerUruchomienia extends Thread {
                         }
                     }
                 }
+
+                sleep(1);
             }catch (Exception e){
 
             }
