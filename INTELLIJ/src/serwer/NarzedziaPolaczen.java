@@ -71,6 +71,10 @@ public class NarzedziaPolaczen {
                 case 14:
                     command14(polaczenie, data, baza);
                     break;
+
+                case 17:
+                    command17(polaczenie, data, baza);
+                    break;
             }
 
         }
@@ -81,6 +85,8 @@ public class NarzedziaPolaczen {
         }
 
     }
+
+
 
     private String[] cutTheData(String data){
         /* Zwraca dane zapisane do pierwszego wykrzyknika!
@@ -316,6 +322,10 @@ public class NarzedziaPolaczen {
 
     private void command15(Polaczenie polaczenie, int idKlient, int dataType, String desiredData) {
         polaczenie.sendMessage("R#!*015"+idKlient+"!"+dataType+"!"+desiredData+"#END");
+    }
+
+    private void command17(Polaczenie polaczenie, String data, Baza baza) {
+        System.out.println("Komenda 17!");
     }
 
 }

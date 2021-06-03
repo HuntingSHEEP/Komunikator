@@ -32,6 +32,7 @@ class Nadawaj extends Thread
     public void run()
     {
         try{
+            /*
             while (isRunning){
 
                 //byte[] inputData = new byte[1024];
@@ -66,7 +67,10 @@ class Nadawaj extends Thread
                     outp.flush();
                 }
                 sleep(100);
+                             
             }
+
+             */
         }catch(Exception e){System.out.println("Yolooooo XD. ");
         e.printStackTrace();}
     }

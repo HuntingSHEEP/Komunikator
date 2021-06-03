@@ -16,7 +16,6 @@ public class SerwerMain
       Baza baza = new Baza();
       Serwer serwer = new Serwer(baza);
       //testBazy();
-      int coooo;
    }
 
    private static void testBazy(){
