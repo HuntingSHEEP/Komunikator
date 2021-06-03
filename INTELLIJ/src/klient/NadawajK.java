@@ -53,6 +53,7 @@ class NadawajK extends Thread
                     outp.println(str);
                     outp.flush();
                 }
+                sleep(100);
 
 
 

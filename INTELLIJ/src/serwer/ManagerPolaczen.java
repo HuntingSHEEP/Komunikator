@@ -50,8 +50,7 @@ public class ManagerPolaczen extends Thread{
                     }
                 }
 
-                sleep(1);
-
+                sleep(100);
 
 
             }catch (Exception e){

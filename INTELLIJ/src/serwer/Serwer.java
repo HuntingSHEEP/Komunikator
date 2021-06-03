@@ -66,7 +66,7 @@ public class Serwer  {
                     }
                 }
 
-                sleep(1);
+                sleep(100);
 
             }catch (Exception e){
                 e.printStackTrace();

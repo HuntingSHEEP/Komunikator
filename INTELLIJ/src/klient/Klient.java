@@ -44,8 +44,6 @@ public class Klient {
                 nadawanie.podajWatekOdbierajacy(odbieranie);
                 odbieranie.setWatekNadajacy(nadawanie);
 
-
-
                 flagaPetli = false;
             }catch (Exception e){
                 e.printStackTrace();

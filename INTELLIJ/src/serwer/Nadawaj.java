@@ -65,6 +65,7 @@ class Nadawaj extends Thread
                     outp.println(str);
                     outp.flush();
                 }
+                sleep(100);
             }
         }catch(Exception e){System.out.println("Yolooooo XD. ");
         e.printStackTrace();}

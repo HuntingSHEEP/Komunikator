@@ -57,6 +57,7 @@ class Odbior extends Thread
                         break;
                     }
                 }
+                sleep(100);
             }
 
         }catch(Exception e){System.out.println("Coś się skichało, odbiór. "+e);}

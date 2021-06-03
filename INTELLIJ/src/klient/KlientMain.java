@@ -9,5 +9,8 @@ public class KlientMain
    public static void main(String[] args) throws IOException
    {
       Klient klient = new Klient();
+
+
+      int cooo;
    }
 }
