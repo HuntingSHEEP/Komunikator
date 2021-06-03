@@ -2,21 +2,16 @@ package serwer;
 
 import baza.Baza;
 
-public class ManagerUruchomienia extends Thread {
-    //KRĄG 2 ZARZĄDZANIA
-    Baza baza;
+public class ManagerRozmow extends Thread{
+    //KRĄG 3 - ROZMOWY
     Polaczenie[] listaPolaczen;
+    Baza baza;
     NarzedziaPolaczen narzedzia;
 
-    ManagerRozmow managerRozmow;
-
-    ManagerUruchomienia(Polaczenie[] listaPolaczen, Baza baza){
-        this.baza = baza;
+    public ManagerRozmow(Polaczenie[] listaPolaczen, Baza baza) {
         this.listaPolaczen = listaPolaczen;
+        this.baza = baza;
         this.narzedzia = new NarzedziaPolaczen();
-
-        this.managerRozmow = new ManagerRozmow(listaPolaczen, baza);
-        this.managerRozmow.start();
     }
 
     public void run(){
@@ -25,7 +20,7 @@ public class ManagerUruchomienia extends Thread {
                 for (Polaczenie polaczenie : listaPolaczen){
                     if(polaczenie != null){
                         //jeśli w ogóle jest połączenie
-                        if(polaczenie.getKRAG() == 2){
+                        if(polaczenie.getKRAG() == 3){
                             if(polaczenie.newMessage()){
                                 //przyszła jakaś wiadomość
                                 String wiadomosc = polaczenie.getMessage();
@@ -44,7 +39,5 @@ public class ManagerUruchomienia extends Thread {
 
             }
         }
-
     }
-
 }

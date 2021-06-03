@@ -79,8 +79,18 @@ public class NarzedziaPolaczen {
                 case 17:
                     command17(polaczenie, data, baza);
                     break;
+
+                case 21:
+                    command21(polaczenie);
+                    break;
             }
 
+        }else if(polaczenie.getKRAG() == 3){
+            switch(numer){
+                case 22:
+                    command22(polaczenie, data, baza);
+                    break;
+            }
         }
 
         if(polecenie){
@@ -89,7 +99,6 @@ public class NarzedziaPolaczen {
         }
 
     }
-
 
     private String[] cutTheData(String data){
         /* Zwraca dane zapisane do pierwszego wykrzyknika!
@@ -396,6 +405,15 @@ public class NarzedziaPolaczen {
 
     private void command20(Polaczenie polaczenie) {
         polaczenie.sendMessage("R#!*020#END");
+    }
+
+    private void command21(Polaczenie polaczenie){
+        polaczenie.setKRAG(3);
+        command0(polaczenie);
+    }
+
+    private void command22(Polaczenie polaczenie, String data, Baza baza) {
+        System.out.println("KOMENDA 22, KRĄG "+polaczenie.getKRAG());
     }
 
 }
