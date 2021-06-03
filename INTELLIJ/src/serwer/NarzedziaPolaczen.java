@@ -72,6 +72,10 @@ public class NarzedziaPolaczen {
                     command14(polaczenie, data, baza);
                     break;
 
+                case 16:
+                    command16(polaczenie, data, baza);
+                    break;
+
                 case 17:
                     command17(polaczenie, data, baza);
                     break;
@@ -85,7 +89,6 @@ public class NarzedziaPolaczen {
         }
 
     }
-
 
 
     private String[] cutTheData(String data){
@@ -324,8 +327,75 @@ public class NarzedziaPolaczen {
         polaczenie.sendMessage("R#!*015"+idKlient+"!"+dataType+"!"+desiredData+"#END");
     }
 
+    private void command16(Polaczenie polaczenie, String data, Baza baza) {
+        System.out.println("KOMENDA 16!");
+
+        int usrID = polaczenie.getID();
+        int idPokoju;
+
+        try{
+            idPokoju = Integer.parseInt(data);
+            System.out.println(idPokoju);
+        }catch (Exception e){
+            command1(polaczenie);
+            return;
+        }
+
+        String zapytanie = "select ID_UCZESTNIKA,DATA,TRESC from ROZMOWA where ID_POKOJU = "+idPokoju;
+        ResultSet wynikZapytania = baza.dml(zapytanie);
+
+        try{
+            while(wynikZapytania.next()){
+                int idUczestnika = wynikZapytania.getInt("ID_UCZESTNIKA");
+                String dataWyslania = wynikZapytania.getString("DATA");
+                String trescRozmowy = wynikZapytania.getString("TRESC");
+
+                System.out.println("ID_POKOJU: " + idPokoju +
+                        "; ID_UCZESTNIKA: " + idUczestnika +
+                        "; Data: " + dataWyslania +
+                        "; TREŚĆ: " + trescRozmowy
+                );
+                command19(polaczenie, idPokoju, idUczestnika, dataWyslania, trescRozmowy);
+            }
+            command20(polaczenie);
+        }catch (Exception e){
+            e.printStackTrace();
+            command1(polaczenie);
+        }
+
+
+    }
+
     private void command17(Polaczenie polaczenie, String data, Baza baza) {
-        System.out.println("Komenda 17!");
+        int usrID = polaczenie.getID();
+
+        String zapytanie = "select count(*) ILOSC from KLIENT_POKOJ where ID_KLIENT = " + usrID;
+        ResultSet wynikZapytaniaILOSC = baza.dml(zapytanie);
+
+        int iloscRekordow = -1;
+        try{
+            while(wynikZapytaniaILOSC.next()){
+                iloscRekordow = wynikZapytaniaILOSC.getInt("ILOSC");
+                System.out.println("Ilość pokoi użytkownika "+usrID+" :"+iloscRekordow);
+                command18(polaczenie, iloscRekordow);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            command1(polaczenie);
+        }
+
+    }
+
+    private void command18(Polaczenie polaczenie, int iloscRekordow) {
+        polaczenie.sendMessage("R#!*018"+iloscRekordow+"#END");
+    }
+
+    private void command19(Polaczenie polaczenie, int idPokoju, int idUczestnika, String dataWyslania, String trescRozmowy) {
+        polaczenie.sendMessage("R#!*019"+idPokoju+"!"+idUczestnika+"!"+dataWyslania+"!"+trescRozmowy+"#END");
+    }
+
+    private void command20(Polaczenie polaczenie) {
+        polaczenie.sendMessage("R#!*020#END");
     }
 
 }

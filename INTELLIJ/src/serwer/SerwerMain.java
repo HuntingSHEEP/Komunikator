@@ -42,6 +42,10 @@ public class SerwerMain
       //pokój X1
       baza.ddl("insert into KLIENT_POKOJ values (0, 2)");
       baza.ddl("insert into KLIENT_POKOJ values (2, 2)");
+      //przykładowe dane ROZMOWA X0
+      baza.ddl("insert into ROZMOWA values (0, 0, 0, '2021-06-03 20:30:01', 'no siema')");
+      baza.ddl("insert into ROZMOWA values (1, 0, 2, '2021-06-03 20:32:31', 'ELOOO')");
+      baza.ddl("insert into ROZMOWA values (2, 0, 1, '2021-06-03 20:35:31', 'BEEEEE')");
 
 
 
@@ -70,6 +74,19 @@ public class SerwerMain
          while(wynikZapytania.next()){
             System.out.println("POKOJ : " + wynikZapytania.getString("NAZWA") + "; KLIENT = " +
                     wynikZapytania.getString("IMIE"));
+         }
+      }catch (Exception e){}
+
+      wynikZapytania = baza.dml("select ROWID, ID_POKOJU, ID_UCZESTNIKA, DATA, TRESC from ROZMOWA");
+      try{
+         System.out.println("\n------- TABELA ROZMOWA -------");
+         while(wynikZapytania.next()){
+            System.out.println("ROWID = " + wynikZapytania.getInt("ROWID") +
+                    "; ID_POKOJU = " + wynikZapytania.getInt("ID_POKOJU") +
+                    "; ID_UCZESTNIKA: " + wynikZapytania.getString("ID_UCZESTNIKA") +
+                    "; DATA: " + wynikZapytania.getString("DATA")+
+                    "; TREŚĆ: " + wynikZapytania.getString("TRESC")
+            );
          }
       }catch (Exception e){}
 

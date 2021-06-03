@@ -67,7 +67,7 @@ class Nadawaj extends Thread
                     outp.flush();
                 }
                 sleep(100);
-                             
+
             }
 
              */
