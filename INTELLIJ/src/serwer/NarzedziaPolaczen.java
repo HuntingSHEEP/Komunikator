@@ -2,7 +2,6 @@ package serwer;
 
 import baza.Baza;
 
-import java.security.spec.ECField;
 import java.sql.ResultSet;
 
 public class NarzedziaPolaczen {
@@ -38,7 +37,7 @@ public class NarzedziaPolaczen {
         return state;
     }
 
-    public void responseRequest(Polaczenie polaczenie, String msg, Baza baza) {
+    public void responseRequest(Polaczenie polaczenie, String msg, Baza baza, Polaczenie[] listaPolaczen) {
         /*-----REAGOWANIE NA PRZYSŁANE ŻĄÐANIA
          * KRĄG -1 TO KLIENT
          * METODA SPRAWDZA W KTÓRYM KRĘGU ZNAJDUJE SIĘ KLIENT I W ZALEŻNOŚCI
@@ -88,7 +87,7 @@ public class NarzedziaPolaczen {
         }else if(polaczenie.getKRAG() == 3){
             switch(numer){
                 case 22:
-                    command22(polaczenie, data, baza);
+                    command22(polaczenie, data, baza, listaPolaczen);
                     break;
             }
         }
@@ -371,8 +370,6 @@ public class NarzedziaPolaczen {
             e.printStackTrace();
             command1(polaczenie);
         }
-
-
     }
 
     private void command17(Polaczenie polaczenie, String data, Baza baza) {
@@ -412,8 +409,68 @@ public class NarzedziaPolaczen {
         command0(polaczenie);
     }
 
-    private void command22(Polaczenie polaczenie, String data, Baza baza) {
+    private void command22(Polaczenie polaczenie, String data, Baza baza, Polaczenie[] listaPolaczen) {
+        /*
+         * Komenda 22 - żądanie przekierowania wiadomości do uczestników pokoju.
+         * 1) Pobranie informacji z DATA i sprawdzenie proprawności danych (czy w ogóle są i typ).
+         * 2) Odpytanie bazy na temat uczestników danego pokoju.
+         * 3) Odczytanie pojedynczego rekordu.
+         * 4) Przesłanie wiadomości do uczestników pokoju.
+         */
         System.out.println("KOMENDA 22, KRĄG "+polaczenie.getKRAG());
+        int ID_POKOJU;
+        String dataWYSLANIA, TRESC;
+
+        // 1) Pobranie informacji z DATA i sprawdzenie proprawności danych (czy w ogóle są i typ)
+        try{
+            String[] dane = cutTheData(data);
+            ID_POKOJU = Integer.parseInt(dane[0]);
+            dataWYSLANIA = dane[1];
+            TRESC = dane[2];
+        }catch (Exception e){
+            command1(polaczenie);
+            return;
+        }
+
+        // 2) Odpytanie bazy na temat uczestników danego pokoju.
+        String zapytanie = "select ID_KLIENT from KLIENT_POKOJ where ID_POKOJ = "+ID_POKOJU;
+        ResultSet wynikZapytania = baza.dml(zapytanie);
+
+        try{
+            while(wynikZapytania.next()){
+                // 3) Odczytanie pojedynczego rekordu.
+                int ID_KLIENT = wynikZapytania.getInt("ID_KLIENT");
+                System.out.println("ID_POKOJU: " + ID_POKOJU +
+                        "; ID_KLIENT: " + ID_KLIENT
+                );
+
+                // 4) Przesłanie wiadomości do uczestników pokoju.
+                // TODO: Czy sprawdzać przynależność do kręgu?
+                for(Polaczenie pol:listaPolaczen){
+                    if(pol != null){
+                        // Sprawdzamy czy znaleźliśmy odpowiedniego klienta
+                        if(pol.getID() == ID_KLIENT){
+                            // Oraz czy nie wyślemy do tego, od którego przyszło żądanie (ten sam klient
+                            // może się przecież logować z wielu urządzeń)
+                            if(pol != polaczenie){
+                                command23(pol, ID_KLIENT, ID_POKOJU, dataWYSLANIA, TRESC);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            command0(polaczenie);
+        }catch (Exception e){
+            e.printStackTrace();
+            command1(polaczenie);
+        }
+
+    }
+
+    private void command23(Polaczenie pol, int id_klient, int id_pokoju, String dataWYSLANIA, String tresc) {
+        pol.sendMessage("R#!*023"+id_klient+"!"+id_pokoju+"!"+dataWYSLANIA+"!"+tresc+"#END");
     }
 
 }

@@ -2,8 +2,6 @@ package serwer;
 
 import baza.Baza;
 
-import java.sql.ResultSet;
-
 public class ManagerPolaczen extends Thread{
     //KRĄG 1 ZARZĄDZANIA
 
@@ -42,7 +40,7 @@ public class ManagerPolaczen extends Thread{
 
                                     if(narzedzia.isRequest(wiadomosc)){
                                         //wiadomość jest komendą
-                                        narzedzia.responseRequest(polaczenie, wiadomosc, baza);
+                                        narzedzia.responseRequest(polaczenie, wiadomosc, baza, listaPolaczen);
                                     }
                                 }
                         //    }
