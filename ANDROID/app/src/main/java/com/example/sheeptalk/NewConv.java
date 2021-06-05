@@ -1,2 +1,4 @@
-package com.example.sheeptalk;public class NewConv {
+package com.example.sheeptalk;
+
+public class NewConv {
 }

@@ -14,14 +14,16 @@ public class NarzedziaPolaczen {
          * 3) Numer komendy XXX czy na pewno jest INTEGER
          */
         boolean state = false;
-
+        System.out.println("wiad {"+msg+"}");
         if(11 <= msg.length()){
             /* Nagłówek komendy: R#!*
              * Stopka komendy: #END
              * całkowita długość komendy : MINIMUM 7+4
              */
-
+            System.out.println(msg.substring(msg.length()-4));
+            System.out.println(msg.substring(0, 4).equals("R#!*") +"-"+ msg.substring(msg.length()-4).equals("#END"));
             if(msg.substring(0, 4).equals("R#!*") && msg.substring(msg.length()-4).equals("#END")){
+                System.out.println("Wchodzi");
                 try{
                     //Tutaj sprawdzam jedynie czy numer polecenia jest typu INT, domyślny zakres od 0 do 999
                     //JEŚLI NIE BĘDZIE INT TO WYRZUCI BŁĄD I NIE PRZEJDZIE DO responseREQUEST
@@ -34,6 +36,7 @@ public class NarzedziaPolaczen {
                 }
             }
         }
+        System.out.println(state);
         return state;
     }
 
@@ -162,7 +165,7 @@ public class NarzedziaPolaczen {
          * 5) Logowanie
          * 6) Przekazanie połączenia do KRĘGU 2
          */
-
+        System.out.println("Komenda9 "+data);
         // 1) Pobieranie id Klienta
         String temp = "";
         int i = 0;

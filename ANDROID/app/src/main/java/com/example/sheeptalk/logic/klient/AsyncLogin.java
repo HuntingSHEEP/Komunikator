@@ -8,14 +8,16 @@ import com.example.sheeptalk.MainMENU;
 
 public class AsyncLogin extends AsyncTask<String, Integer, Integer> {
     Klient klient;
+    Singleton singleton;
     int LOGIN;
     String PASSWORD;
     Activity activity;
     boolean loggedIN;
 
 
-    public AsyncLogin(Klient klient, int LOGIN, String PASSWORD, Activity activity){
-        this.klient = klient;
+    public AsyncLogin( int LOGIN, String PASSWORD, Activity activity){
+        this.singleton = Singleton.getInstance();
+        this.klient = singleton.klient;
         this.LOGIN = LOGIN;
         this.PASSWORD = PASSWORD;
         this.activity = activity;
@@ -23,6 +25,7 @@ public class AsyncLogin extends AsyncTask<String, Integer, Integer> {
 
     @Override
     protected Integer doInBackground(String... strings) {
+        System.out.println("doINBackground");
         loggedIN = klient.logIn(LOGIN, PASSWORD);
         return 0;
     }
@@ -31,7 +34,7 @@ public class AsyncLogin extends AsyncTask<String, Integer, Integer> {
     protected void onPostExecute(Integer result) {
         //musi przyjmować TAKI SAM TYP PARAMETRU (Integer) jak zadeklarowano w AsyncTask<X, X, Integer>
 
-        System.out.println("onPostEXECUTE");
+        System.out.println("onPostEXECUTE"+loggedIN);
         if(loggedIN){
             Toast.makeText(activity, "POMYŚLNIE ZALOGOWANO!", Toast.LENGTH_SHORT).show();
 

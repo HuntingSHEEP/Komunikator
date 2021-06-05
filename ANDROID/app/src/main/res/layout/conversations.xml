@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleXD"
+        android:id="@+id/recycleConv"
         android:layout_width="349dp"
         android:layout_height="518dp"
         android:layout_marginTop="56dp"
@@ -15,10 +15,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/newConv"
+        android:id="@+id/newConvButt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nowa Rozmowa"
-        app:layout_constraintEnd_toEndOf="@+id/recycleXD"
-        app:layout_constraintTop_toBottomOf="@+id/recycleXD" />
+        app:layout_constraintEnd_toEndOf="@+id/recycleConv"
+        app:layout_constraintTop_toBottomOf="@+id/recycleConv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

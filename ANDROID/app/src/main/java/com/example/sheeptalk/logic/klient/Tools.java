@@ -3,21 +3,23 @@ package com.example.sheeptalk.logic.klient;
 import android.widget.Switch;
 
 public class Tools {
-    public boolean isRequest(String msg){
+    boolean isRequest(String msg){
         /*----Sprawdzamy czy wiadomość jest komendą:
          * 1) długość przynajmniej 10 znaków (zmieści się nagłówek i stopka, DATA zerowe)
          * 2) Poprawny nagłowek R#!*XXX oraz stopka #END
          * 3) Numer komendy XXX czy na pewno jest INTEGER
          */
         boolean state = false;
-
+        System.out.println("wiad {"+msg+"}");
         if(11 <= msg.length()){
             /* Nagłówek komendy: R#!*
              * Stopka komendy: #END
              * całkowita długość komendy : MINIMUM 7+4
              */
-
+            System.out.println(msg.substring(msg.length()-4));
+            System.out.println(msg.substring(0, 4).equals("R#!*") +"-"+ msg.substring(msg.length()-4).equals("#END"));
             if(msg.substring(0, 4).equals("R#!*") && msg.substring(msg.length()-4).equals("#END")){
+                System.out.println("Wchodzi");
                 try{
                     //Tutaj sprawdzam jedynie czy numer polecenia jest typu INT, domyślny zakres od 0 do 999
                     //JEŚLI NIE BĘDZIE INT TO WYRZUCI BŁĄD I NIE PRZEJDZIE DO responseREQUEST
@@ -30,6 +32,7 @@ public class Tools {
                 }
             }
         }
+        System.out.println(state);
         return state;
     }
 
@@ -93,4 +96,9 @@ public class Tools {
         }
 
     }
+
+    public  int numberCutout(Polaczenie polaczenie, String msg){
+        return Integer.parseInt(msg.substring(7, msg.length()-4));
+    }
+
 }

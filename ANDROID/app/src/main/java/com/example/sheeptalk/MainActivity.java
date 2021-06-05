@@ -14,8 +14,10 @@ import com.example.sheeptalk.logic.klient.AsyncLogin;
 import com.example.sheeptalk.logic.klient.Klient;
 import com.example.sheeptalk.logic.klient.Nadawaj;
 import com.example.sheeptalk.logic.klient.Odbior;
+import com.example.sheeptalk.logic.klient.Singleton;
 
 public class MainActivity extends AppCompatActivity {
+    Singleton singleton;
     Klient klient;
     TextView textHello;
     private Button button;
@@ -26,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         act = this;
-        Klient klient = new Klient();
-        new AsyncClient().execute(klient);
+        singleton = Singleton.getInstance();
+        klient = singleton.klient;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     if (passS.length()<1){
                         throw new Exception("Brak hasła");
                     }
-                    AsyncLogin asyncLogin = new AsyncLogin(klient, intLog, passS, act);
+                    AsyncLogin asyncLogin = new AsyncLogin( intLog, passS, act);
                     asyncLogin.execute();
                     System.out.println("STATUS: " + asyncLogin.getStatus());
 

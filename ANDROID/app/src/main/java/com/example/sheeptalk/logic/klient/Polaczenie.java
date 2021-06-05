@@ -83,9 +83,7 @@ public class Polaczenie {
         return watekOdbierajacy.newMessage();
     }
 
-    public String getMessage() {
-        return watekOdbierajacy.getMessage();
-    }
+    public String getMessage() { return watekOdbierajacy.getMessage().replaceAll("\\s+",""); }
 
     public void sendMessage(String message) {
         watekNadajacy.sendMessage(message);

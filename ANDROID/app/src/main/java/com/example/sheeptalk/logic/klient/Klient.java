@@ -10,8 +10,8 @@ public class Klient {
     private Polaczenie polaczenie;
     private Tools tools;
 
-    //public static final String HOST = "192.168.56.1";
-    public static final String HOST = "192.168.0.102";
+    public static final String HOST = "192.168.56.1";
+    //public static final String HOST = "192.168.0.102";
     public static final int PORT=50007;
     public String wiadomosc = "\n XD";
 
@@ -71,16 +71,36 @@ public class Klient {
     }
 
     public boolean logIn(int id,String Pass){
+        System.out.println(id+" "+Pass);
         String message = "R#!*009"+id+"!"+Pass+"#END";
-        polaczenie.sendMessage("R#!*009"+id+"!"+Pass+"#END");
+        polaczenie.sendMessage(message);
 
         while (!polaczenie.newMessage()){;}
         String message1 = polaczenie.getMessage();
+        System.out.println("tools.isRequest(message1) "+tools.isRequest(message1));
         if(tools.isRequest(message1)){
+            System.out.println("tools.handleRequest(polaczenie,message1) "+tools.handleRequest(polaczenie,message1));
             return tools.handleRequest(polaczenie,message1);
         }else {
             return false;
         }
+    }
+
+
+    public int convNumber(){
+        String message = "R#!*017#END";
+        polaczenie.sendMessage(message);
+
+        while (!polaczenie.newMessage()){;}
+        String message1 = polaczenie.getMessage();
+        if(tools.isRequest(message1)){
+            return tools.numberCutout(polaczenie,message1);
+        }
+        return 0;
+    }
+
+    public void sendMessage(String message){
+        polaczenie.sendMessage(message);
     }
 
     /*

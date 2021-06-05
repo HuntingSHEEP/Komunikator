@@ -30,6 +30,7 @@ public class ManagerUruchomienia extends Thread {
                                 //przyszła jakaś wiadomość
                                 String wiadomosc = polaczenie.getMessage();
 
+
                                 if(narzedzia.isRequest(wiadomosc)){
                                     //wiadomość jest komendą
                                     narzedzia.responseRequest(polaczenie, wiadomosc, baza, listaPolaczen);
