@@ -14,29 +14,27 @@ public class NarzedziaPolaczen {
          * 3) Numer komendy XXX czy na pewno jest INTEGER
          */
         boolean state = false;
-        System.out.println("wiad {"+msg+"}");
+
         if(11 <= msg.length()){
             /* Nagłówek komendy: R#!*
              * Stopka komendy: #END
              * całkowita długość komendy : MINIMUM 7+4
              */
-            System.out.println(msg.substring(msg.length()-4));
-            System.out.println(msg.substring(0, 4).equals("R#!*") +"-"+ msg.substring(msg.length()-4).equals("#END"));
+
             if(msg.substring(0, 4).equals("R#!*") && msg.substring(msg.length()-4).equals("#END")){
-                System.out.println("Wchodzi");
+
                 try{
                     //Tutaj sprawdzam jedynie czy numer polecenia jest typu INT, domyślny zakres od 0 do 999
                     //JEŚLI NIE BĘDZIE INT TO WYRZUCI BŁĄD I NIE PRZEJDZIE DO responseREQUEST
 
                     int numer = Integer.parseInt(msg.substring(4, 7));
-                    //System.out.println("Numer komendy: "+ numer);
                     state = true;
                 }catch (Exception e){
                     e.printStackTrace();
                 }
             }
         }
-        System.out.println(state);
+
         return state;
     }
 
@@ -165,7 +163,7 @@ public class NarzedziaPolaczen {
          * 5) Logowanie
          * 6) Przekazanie połączenia do KRĘGU 2
          */
-        System.out.println("Komenda9 "+data);
+
         // 1) Pobieranie id Klienta
         String temp = "";
         int i = 0;
@@ -339,14 +337,14 @@ public class NarzedziaPolaczen {
     }
 
     private void command16(Polaczenie polaczenie, String data, Baza baza) {
-        System.out.println("KOMENDA 16!");
+        //System.out.println("KOMENDA 16!");
 
         int usrID = polaczenie.getID();
         int idPokoju;
 
         try{
             idPokoju = Integer.parseInt(data);
-            System.out.println(idPokoju);
+            //System.out.println(idPokoju);
         }catch (Exception e){
             command1(polaczenie);
             return;

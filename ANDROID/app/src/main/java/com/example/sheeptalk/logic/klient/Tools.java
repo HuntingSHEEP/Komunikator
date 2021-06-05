@@ -10,22 +10,18 @@ public class Tools {
          * 3) Numer komendy XXX czy na pewno jest INTEGER
          */
         boolean state = false;
-        System.out.println("wiad {"+msg+"}");
+
         if(11 <= msg.length()){
             /* Nagłówek komendy: R#!*
              * Stopka komendy: #END
              * całkowita długość komendy : MINIMUM 7+4
              */
-            System.out.println(msg.substring(msg.length()-4));
-            System.out.println(msg.substring(0, 4).equals("R#!*") +"-"+ msg.substring(msg.length()-4).equals("#END"));
+
             if(msg.substring(0, 4).equals("R#!*") && msg.substring(msg.length()-4).equals("#END")){
-                System.out.println("Wchodzi");
                 try{
                     //Tutaj sprawdzam jedynie czy numer polecenia jest typu INT, domyślny zakres od 0 do 999
                     //JEŚLI NIE BĘDZIE INT TO WYRZUCI BŁĄD I NIE PRZEJDZIE DO responseREQUEST
-
                     int numer = Integer.parseInt(msg.substring(4, 7));
-                    //System.out.println("Numer komendy: "+ numer);
                     state = true;
                 }catch (Exception e){
                     e.printStackTrace();
@@ -59,7 +55,6 @@ public class Tools {
         int index = 0;
         for(int i=0; i<data.length(); i++){
             if(data.charAt(i) == '!'){
-                //System.out.println("WYCIĘTO "+index+": ["+temporary+"]");
                 output[index] = temporary;
                 temporary = "";
                 index++;
@@ -67,7 +62,6 @@ public class Tools {
                 temporary += data.charAt(i);
             }
             if(i == data.length()-1){
-                //System.out.println("WYCIĘTO "+index+": ["+temporary+"]");
                 output[index] = temporary;
                 temporary = "";
                 index++;

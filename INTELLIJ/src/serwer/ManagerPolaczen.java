@@ -37,7 +37,7 @@ public class ManagerPolaczen extends Thread{
                                 if(polaczenie.newMessage()){
                                     //przyszła jakaś wiadomość
                                     String wiadomosc = polaczenie.getMessage();
-                                    System.out.println("nowa: "+wiadomosc);
+                                    //System.out.println("nowa: "+wiadomosc);
 
 
                                     if(narzedzia.isRequest(wiadomosc)){

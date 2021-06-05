@@ -29,9 +29,15 @@ public class Rozmowy extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversations);
+
+
         newConv = (Button) findViewById(R.id.newConvButt);
         singleton = Singleton.getInstance();
+
+        /*
         klient = singleton.klient;
+
+
 
         newConv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,13 +45,14 @@ public class Rozmowy extends AppCompatActivity{
                 newConv();
             }
         });
-
+*/
         recycle = (RecyclerView) findViewById(R.id.recycleConv);
         recycle.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         adapter = new CustomAdapterRozmowy(this);
         recycle.setLayoutManager(layoutManager);
         recycle.setAdapter(adapter);
+
     }
 
     private void newConv(){

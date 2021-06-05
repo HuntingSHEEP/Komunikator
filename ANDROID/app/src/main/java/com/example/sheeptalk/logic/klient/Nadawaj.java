@@ -79,10 +79,16 @@ public class Nadawaj extends Thread
     }
 
     public void sendMessage(String message) {
+        AsyncSendMessage asyncSendMessage = new AsyncSendMessage(outp);
+        asyncSendMessage.execute(message);
+
+
         //this.bufor = message;
         //outp.println(this.bufor);
-        outp.println(message);
-        outp.flush();
+
+        //outp.println(message);
+        //outp.flush();
+
         //System.out.println("wyslano: "+message+";length: "+this.bufor.length());
     }
 }

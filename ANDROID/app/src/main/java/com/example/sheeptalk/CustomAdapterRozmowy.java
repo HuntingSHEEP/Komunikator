@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -32,26 +33,35 @@ public class CustomAdapterRozmowy extends RecyclerView.Adapter<CustomAdapterRozm
 
     @Override
     public CustomAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_conversations,parent,false);
+        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_conversations,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_maybe,parent,false);
         return new CustomAdapterViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapterViewHolder holder, final int position){
-        holder.button.setText("");
+        holder.button.setText("elooo");
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "GUZIK " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
     @Override
     public int getItemCount(){
-        return klient.convNumber();
+        int conversationsNumber = klient.convNumber();
+        return conversationsNumber;
     }
 
     public static class CustomAdapterViewHolder extends RecyclerView.ViewHolder{
         public Button button;
         public CustomAdapterViewHolder(@NonNull View itemView){
             super(itemView);
-            button = itemView.findViewById(R.id.rozm);
+            button = itemView.findViewById(R.id.conversationButton);
+
         }
     }
 

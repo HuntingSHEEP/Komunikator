@@ -50,9 +50,10 @@ public class MainActivity extends AppCompatActivity {
                     if (passS.length()<1){
                         throw new Exception("Brak hasła");
                     }
-                    AsyncLogin asyncLogin = new AsyncLogin( intLog, passS, act);
-                    asyncLogin.execute();
-                    System.out.println("STATUS: " + asyncLogin.getStatus());
+                    //AsyncLogin asyncLogin = new AsyncLogin( intLog, passS, act);
+                    //asyncLogin.execute();
+                    //System.out.println("STATUS: " + asyncLogin.getStatus());
+                    zalogowano = klient.logIn(intLog, passS);
 
 
                 }catch (Exception e){
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void LogIn(){
         //przeniesione do asynca
+        //już nie!
         Intent intent = new Intent(this, MainMENU.class);
         startActivity(intent);
     }
