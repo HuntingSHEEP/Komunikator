@@ -14,10 +14,8 @@ public class AsyncClient extends AsyncTask<Klient, Integer, Integer> {
     }
 
     protected void onPostExecute(int result) {
-
     }
 
     protected void onProgressUpdate(Integer... progress) {
-
     }
 }

@@ -16,7 +16,9 @@ public class Klient {
     public String wiadomosc = "\n XD";
 
 
-    public Klient(){}
+    public Klient(){
+        this.tools = new Tools();
+    }
 
 
     public void polaczSieZSerwerem() {
@@ -69,15 +71,18 @@ public class Klient {
     }
 
     public boolean logIn(int id,String Pass){
+        String message = "R#!*009"+id+"!"+Pass+"#END";
         polaczenie.sendMessage("R#!*009"+id+"!"+Pass+"#END");
+
         while (!polaczenie.newMessage()){;}
-        String mess = polaczenie.getMessage();
-        if(tools.isRequest(mess)){
-            return tools.handleRequest(polaczenie,mess);
+        String message1 = polaczenie.getMessage();
+        if(tools.isRequest(message1)){
+            return tools.handleRequest(polaczenie,message1);
         }else {
             return false;
         }
     }
+
     /*
     public Nadawaj getWatekNadajacy(){
         return polaczenie.getWatekNadajacy();

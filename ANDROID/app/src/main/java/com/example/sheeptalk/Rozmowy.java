@@ -1,4 +1,4 @@
-package com.example.sheeptalk.logic.klient;
+package com.example.sheeptalk;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;

@@ -46,7 +46,7 @@ class Odbior extends Thread
 
                 if(result > 0){
                     str = new String(inputData).substring(0, result - 1);
-                    //System.out.println("<Nadeszlo:> result [" + result + "] " + str);
+                    System.out.println("<Nadeszlo:> [" + result + "] " + str);
 
                     this.bufor += str;
                     //System.out.println("ZAWARTOŚĆ BUFORA: "+bufor);
