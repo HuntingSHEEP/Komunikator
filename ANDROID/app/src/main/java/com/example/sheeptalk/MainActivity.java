@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if(zalogowano){
+                    //to nie jest używane >> przeniesiono do asynca
                     LogIn();
                 }
             }
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void LogIn(){
         //przeniesione do asynca
-        Intent intent = new Intent(this, MainMenu.class);
+        Intent intent = new Intent(this, MainMENU.class);
         startActivity(intent);
     }
 }

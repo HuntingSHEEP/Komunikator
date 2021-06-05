@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.sheeptalk.MainMENU;
-import com.example.sheeptalk.MainMenu;
 
 public class AsyncLogin extends AsyncTask<String, Integer, Integer> {
     Klient klient;
@@ -30,6 +29,7 @@ public class AsyncLogin extends AsyncTask<String, Integer, Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
+        //musi przyjmować TAKI SAM TYP PARAMETRU (Integer) jak zadeklarowano w AsyncTask<X, X, Integer>
 
         System.out.println("onPostEXECUTE");
         if(loggedIN){
