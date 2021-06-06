@@ -19,16 +19,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sheeptalk.logic.klient.Klient;
 import com.example.sheeptalk.logic.klient.Singleton;
 
+import java.util.List;
+
 
 public class CustomAdapterRozmowy extends RecyclerView.Adapter<CustomAdapterRozmowy.CustomAdapterViewHolder>{
     private Singleton singleton;
     private Klient klient;
+    private int index;
+    private List<Object> lista;
 
     Context context;
-    public CustomAdapterRozmowy(Context context){
+    public CustomAdapterRozmowy(List<Object> lista, Context context){
         this.singleton=Singleton.getInstance();
         this.klient = singleton.klient;
         this.context=context;
+        this.lista=lista;
     }
 
     @Override
@@ -40,7 +45,7 @@ public class CustomAdapterRozmowy extends RecyclerView.Adapter<CustomAdapterRozm
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapterViewHolder holder, final int position){
-        holder.button.setText("elooo");
+        holder.button.setText(lista.get(position).toString());
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,7 @@ package serwer;
 import baza.Baza;
 
 import java.sql.ResultSet;
+import static java.lang.Thread.sleep;
 
 public class NarzedziaPolaczen {
 
@@ -246,7 +247,9 @@ public class NarzedziaPolaczen {
             //Wysyłamy komendę 11 - Informacja o ilości nadchadzących paczek
             System.out.println("ILOSĆ REKORDOW: "+ iloscRekordow);
             command11(polaczenie, iloscRekordow);
-
+            try{
+                sleep(150);
+            }catch (Exception e){;}
             //Teraz odpytamy bazę
             //TODO: Teoretyczna dziura: a co w przypadku kiedy to jest jeden pokój z wyłącznie z jednym użytkownikiem? Przecież tego pokoju zapytanie nie wyłapie!
             String zapytanie = "select kp.ID_POKOJ, kp.ID_KLIENT from KLIENT_POKOJ kp, "+pokoje+" p where kp.ID_POKOJ = p.ID_POKOJ AND kp.ID_KLIENT != "+usrID;
@@ -264,6 +267,9 @@ public class NarzedziaPolaczen {
                     //wysyłamy komendę 12 - para ID_POKOJ oraz ID_KLIENT
                     System.out.println("ID_POKOJ: "+tableID_POKOJ+", ID_KLIENT: "+tableID_KLIENT);
                     command12(polaczenie, tableID_POKOJ, tableID_KLIENT);
+                    try{
+                        sleep(150);
+                    }catch (Exception e){;}
                 }
                 //Wysłanie komendy 13 - Informacja o końcu wysyłania pakietów pokoju
                 command13(polaczenie);

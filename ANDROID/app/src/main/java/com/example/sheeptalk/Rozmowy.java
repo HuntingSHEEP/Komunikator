@@ -10,11 +10,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.sheeptalk.logic.klient.Klient;
-import com.example.sheeptalk.logic.klient.Room;
 import com.example.sheeptalk.logic.klient.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class Rozmowy extends AppCompatActivity{
     private Button newConv;
@@ -23,7 +24,7 @@ public class Rozmowy extends AppCompatActivity{
     private CustomAdapterRozmowy adapter;
     public Singleton singleton;
     public Klient klient;
-    private List<Room> roomList = new ArrayList<Room>();
+    private List<Object> roomList = new ArrayList<Object>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,9 @@ public class Rozmowy extends AppCompatActivity{
         newConv = (Button) findViewById(R.id.newConvButt);
         singleton = Singleton.getInstance();
 
-        /*
-        klient = singleton.klient;
 
+        klient = singleton.klient;
+        loadConv();
 
 
         newConv.setOnClickListener(new View.OnClickListener() {
@@ -45,13 +46,13 @@ public class Rozmowy extends AppCompatActivity{
                 newConv();
             }
         });
-*/
         recycle = (RecyclerView) findViewById(R.id.recycleConv);
         recycle.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        adapter = new CustomAdapterRozmowy(this);
+        adapter = new CustomAdapterRozmowy(roomList,this);
         recycle.setLayoutManager(layoutManager);
         recycle.setAdapter(adapter);
+
 
     }
 
@@ -61,6 +62,22 @@ public class Rozmowy extends AppCompatActivity{
     }
 
     private void loadConv(){
+        System.out.println("loadConv");
+        String temp;
+        klient.sendMessage("R#!*010#END");
+        System.out.println("loadConv: Wysłano zapytanie");
+        do{
+            try {
+                sleep(100);
+            }catch (Exception e){;}
 
+            temp = klient.getData();
+            System.out.println("Data "+ temp);
+            if(temp !=""){
+                if (!temp.substring(0,4).equals("R#!*")) {
+                    roomList.add(temp);
+                }
+            }
+        }while (!temp.equals("R#!*013#END"));
     }
 }

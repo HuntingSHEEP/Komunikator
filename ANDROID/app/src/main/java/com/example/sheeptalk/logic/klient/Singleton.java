@@ -1,12 +1,18 @@
 package com.example.sheeptalk.logic.klient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Singleton {
     private static Singleton single_instance = null;
     public Klient klient;
 
+
     private Singleton(){
         this.klient = new Klient();
         new AsyncClient().execute(klient);
+
+
 
     }
 
