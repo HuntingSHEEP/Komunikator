@@ -10,7 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sheeptalk.logic.klient.CustomAdapterWiadomosci;
+//import com.example.sheeptalk.logic.klient.CustomAdapterWiadomosci;
+import com.example.sheeptalk.CustomAdapterWiadomosci;
 import com.example.sheeptalk.logic.klient.Klient;
 import com.example.sheeptalk.logic.klient.Singleton;
 
@@ -27,7 +28,7 @@ public class Wiadomosci extends AppCompatActivity {
     private int id = 0;
 
     @Override
-    protected void OnCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.messeges);
 

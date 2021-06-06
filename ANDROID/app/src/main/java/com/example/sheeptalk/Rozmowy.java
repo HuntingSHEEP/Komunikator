@@ -31,14 +31,11 @@ public class Rozmowy extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conversations);
 
-
         newConv = (Button) findViewById(R.id.newConvButt);
         singleton = Singleton.getInstance();
 
-
         klient = singleton.klient;
         loadConv();
-
 
         newConv.setOnClickListener(new View.OnClickListener() {
             @Override
