@@ -10,8 +10,8 @@ public class Klient {
     private Polaczenie polaczenie;
     private Tools tools;
 
-    //public static final String HOST = "192.168.56.1";
-    public static final String HOST = "192.168.0.102";
+    public static final String HOST = "192.168.56.1";
+    //public static final String HOST = "192.168.0.102";
     public static final int PORT=50007;
     public String wiadomosc = "\n XD";
 
@@ -109,7 +109,13 @@ public class Klient {
             if (!temp.substring(0, 7).equals("R#!*012")) {
                 return temp;
             }
-            return tools.cutTheData(polaczenie.getMessage()).toString();
+            if (tools.isRequest(temp)){
+                System.out.println(temp);
+                String[] temp2=tools.cutTheData(polaczenie.getMessage());
+                System.out.println(temp2.length);
+                return temp2[1];
+            }
+
         }
         return "";
     }

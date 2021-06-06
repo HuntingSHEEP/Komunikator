@@ -15,6 +15,7 @@
         android:theme="@style/Theme.SheepTALK">
         <activity android:name=".MainMENU"></activity>
         <activity android:name=".Rozmowy"></activity>
+        <activity android:name=".Wiadomosci"></activity>
 
 
 

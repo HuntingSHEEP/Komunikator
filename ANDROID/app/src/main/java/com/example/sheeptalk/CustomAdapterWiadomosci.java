@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,19 +21,17 @@ public class CustomAdapterWiadomosci extends RecyclerView.Adapter<CustomAdapterW
     private Singleton singleton;
     private Klient klient;
     private int index;
-    private List<Object> lista;
+
 
     Context context;
-    public CustomAdapterWiadomosci(){
-
-    }
 
 
-    public CustomAdapterWiadomosci(List<Object> lista, Context context){
+
+    public CustomAdapterWiadomosci(Context context){
         this.singleton=Singleton.getInstance();
         this.klient = singleton.klient;
         this.context=context;
-        this.lista=lista;
+
     }
 
     @Override
@@ -44,27 +43,22 @@ public class CustomAdapterWiadomosci extends RecyclerView.Adapter<CustomAdapterW
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapterViewHolder holder, final int position){
-        holder.button.setText(lista.get(position).toString());
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "GUZIK " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
     }
 
     @Override
     public int getItemCount(){
-        int conversationsNumber = klient.convNumber();
-        return conversationsNumber;
+        return 0;
     }
 
     public static class CustomAdapterViewHolder extends RecyclerView.ViewHolder{
-        public Button button;
+        public TextView user,timem,messege;
         public CustomAdapterViewHolder(@NonNull View itemView){
             super(itemView);
-            button = itemView.findViewById(R.id.conversationButton);
+            user = itemView.findViewById(R.id.textViewAPRName);
+            timem = itemView.findViewById(R.id.textView4);
+            messege = itemView.findViewById(R.id.textView5);
 
         }
     }

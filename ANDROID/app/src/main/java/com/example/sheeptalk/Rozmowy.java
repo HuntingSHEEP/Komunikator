@@ -24,7 +24,7 @@ public class Rozmowy extends AppCompatActivity{
     private CustomAdapterRozmowy adapter;
     public Singleton singleton;
     public Klient klient;
-    private List<Object> roomList = new ArrayList<Object>();
+    private String[] roomList = new String[10];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +61,22 @@ public class Rozmowy extends AppCompatActivity{
     private void loadConv(){
         System.out.println("loadConv");
         String temp;
-        klient.sendMessage("R#!*010#END");
+        //klient.sendMessage("R#!*010#END");
         System.out.println("loadConv: Wysłano zapytanie");
+        int i=0;
         do{
             try {
                 sleep(100);
             }catch (Exception e){;}
 
-            temp = klient.getData();
+            //temp = klient.getData();
+            temp = String.valueOf(i);
             System.out.println("Data "+ temp);
             if(temp !=""){
-                if (!temp.substring(0,4).equals("R#!*")) {
-                    roomList.add(temp);
-                }
+                //if (!temp.substring(0,4).equals("R#!*")) {
+                    roomList[i++]=temp;
+                //}
             }
-        }while (!temp.equals("R#!*013#END"));
+        }while (!temp.equals("R#!*013#END")&&i<3);
     }
 }

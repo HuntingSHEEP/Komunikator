@@ -25,11 +25,11 @@ import java.util.List;
 public class CustomAdapterRozmowy extends RecyclerView.Adapter<CustomAdapterRozmowy.CustomAdapterViewHolder>{
     private Singleton singleton;
     private Klient klient;
-    private int index;
-    private List<Object> lista;
+
+    private String[] lista;
 
     Context context;
-    public CustomAdapterRozmowy(List<Object> lista, Context context){
+    public CustomAdapterRozmowy(String[] lista, Context context){
         this.singleton=Singleton.getInstance();
         this.klient = singleton.klient;
         this.context=context;
@@ -45,11 +45,12 @@ public class CustomAdapterRozmowy extends RecyclerView.Adapter<CustomAdapterRozm
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapterViewHolder holder, final int position){
-        holder.button.setText(lista.get(position).toString());
+        holder.button.setText(lista[position]);
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "GUZIK " + position, Toast.LENGTH_SHORT).show();
+                toConv(position);
             }
         });
 
@@ -69,6 +70,13 @@ public class CustomAdapterRozmowy extends RecyclerView.Adapter<CustomAdapterRozm
 
         }
     }
+    public static final String idRozmowy = "ASD";
+    private void toConv(final int position){
+        Intent intent=new Intent(context,Wiadomosci.class);
+        intent.putExtra(idRozmowy,Integer.parseInt(lista[position]));
+        context.startActivity(intent);
+    }
+
 
 
 
