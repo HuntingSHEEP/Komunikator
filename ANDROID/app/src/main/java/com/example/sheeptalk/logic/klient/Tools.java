@@ -57,6 +57,7 @@ public class Tools {
             if(data.charAt(i) == '!'){
                 output[index] = temporary;
                 temporary = "";
+                System.out.println("index "+index+" string "+output[index]);
                 index++;
             }else{
                 temporary += data.charAt(i);
@@ -64,6 +65,7 @@ public class Tools {
             if(i == data.length()-1){
                 output[index] = temporary;
                 temporary = "";
+                System.out.println("index "+index+" string "+output[index]);
                 index++;
             }
         }
@@ -91,8 +93,8 @@ public class Tools {
 
     }
 
-    public  int numberCutout(Polaczenie polaczenie, String msg){
-        return Integer.parseInt(msg.substring(7, msg.length()-4));
+    public  String numberCutout(Polaczenie polaczenie, String msg){
+        return msg.substring(7, msg.length()-4);
     }
 
 }

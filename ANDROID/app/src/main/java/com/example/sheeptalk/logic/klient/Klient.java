@@ -94,7 +94,7 @@ public class Klient {
         while (!polaczenie.newMessage()){;}
         String message1 = polaczenie.getMessage();
         if(tools.isRequest(message1)){
-            return tools.numberCutout(polaczenie,message1);
+            return Integer.parseInt(tools.numberCutout(polaczenie,message1));
         }
         return 0;
     }
@@ -106,31 +106,45 @@ public class Klient {
     public String getData(){
         String temp =polaczenie.getMessage();
         if (temp.length()>0) {
+            if(temp.equals("R#!*013#END")){return "end";}
             if (!temp.substring(0, 7).equals("R#!*012")) {
-                return temp;
+                return "";
             }
             if (tools.isRequest(temp)){
                 System.out.println(temp);
-                String[] temp2=tools.cutTheData(polaczenie.getMessage());
+                String[] temp2=tools.cutTheData(temp.substring(7,temp.length()-4));
                 System.out.println(temp2.length);
-                return temp2[1];
+                return temp2[0];
             }
 
         }
         return "";
     }
 
+    public String[] getMessage(){
+        String temp = polaczenie.getMessage();
+        if (temp.length()>0){
 
-    /*
-    public Nadawaj getWatekNadajacy(){
-        return polaczenie.getWatekNadajacy();
+            if (temp.equals("R#!*020#END")) {
+                String[] temp2 = new String[1];
+                temp2[0]="end";
+                return temp2;
+            }
+            if (tools.isRequest(temp)){
+                String[] temp2 = tools.cutTheData(String.valueOf(tools.numberCutout(polaczenie,temp)));
+                return temp2;
+            }
+
+        }
+        return null;
     }
 
-    public Odbior getWatekOdbierajacy(){
-        return polaczenie.getWatekOdbierajacy();
+    public String getAnswer(){
+        return polaczenie.getMessage();
     }
 
-     */
+
+
 
 
 }

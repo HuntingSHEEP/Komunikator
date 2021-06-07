@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sheeptalk.CustomAdapterWiadomosci;
 import com.example.sheeptalk.logic.klient.Klient;
 import com.example.sheeptalk.logic.klient.Singleton;
+import com.example.sheeptalk.logic.klient.WiadomościTreści;
 
+import static java.lang.Thread.sleep;
 import java.sql.Date;
 
 public class Wiadomosci extends AppCompatActivity {
@@ -27,6 +29,7 @@ public class Wiadomosci extends AppCompatActivity {
     private CustomAdapterWiadomosci adapter;
     private Singleton singleton;
     private Klient klient;
+    private WiadomościTreści tresci;
 
 
     @Override
@@ -41,6 +44,10 @@ public class Wiadomosci extends AppCompatActivity {
         singleton = Singleton.getInstance();
         klient = singleton.klient;
 
+        tresci=WiadomościTreści.getInstance();
+        tresci.reset();
+        tresci=WiadomościTreści.getInstance();
+
         send = (Button) findViewById(R.id.sendButt);
         nowaWiadomosc = (EditText) findViewById(R.id.textMessage);
 
@@ -50,6 +57,7 @@ public class Wiadomosci extends AppCompatActivity {
         adapter = new CustomAdapterWiadomosci(this);
         recycle.setLayoutManager(layoutManager);
         recycle.setAdapter(adapter);
+
 
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +70,38 @@ public class Wiadomosci extends AppCompatActivity {
 
         });
 
+        loadMess();
+        adapter.notifyDataSetChanged();
+
+        
 
 
+    }
+
+    private void loadMess(){
+        String[] temp = new String[3];
+        klient.sendMessage("R#!*016"+ConvID+"#END");
+
+        int i = 0;
+        boolean end =false;
+        do{
+            try{
+                sleep(100);
+            }catch (Exception E){}
+            temp = klient.getMessage();
+            if(temp!=null) {
+                if (temp.length == 1 && temp[0].equals("end")) {
+                    end = true;
+                }
+
+                if (!end) {
+                    tresci.uczestnicy[i] = temp[1];
+                    tresci.daty[i] = temp[2];
+                    tresci.tresci[i++] = temp[3];
+                }
+            }
+            System.out.println(end);
+
+        }while (!end);
     }
 }

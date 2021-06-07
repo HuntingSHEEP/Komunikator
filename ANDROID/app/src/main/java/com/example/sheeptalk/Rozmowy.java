@@ -61,22 +61,29 @@ public class Rozmowy extends AppCompatActivity{
     private void loadConv(){
         System.out.println("loadConv");
         String temp;
-        //klient.sendMessage("R#!*010#END");
+        klient.sendMessage("R#!*010#END");
         System.out.println("loadConv: Wysłano zapytanie");
         int i=0;
+        boolean end = false;
         do{
             try {
                 sleep(100);
             }catch (Exception e){;}
 
-            //temp = klient.getData();
-            temp = String.valueOf(i);
-            System.out.println("Data "+ temp);
-            if(temp !=""){
-                //if (!temp.substring(0,4).equals("R#!*")) {
-                    roomList[i++]=temp;
-                //}
+            temp = klient.getData();
+            //temp = String.valueOf(i);
+
+            if(temp.equals("end")){end = true;}
+            System.out.println("Data "+ temp+ " end "+end);
+            if(temp !="" && !end){
+                System.out.println(i);
+                if(i>0)
+                {
+                    System.out.println("roomList[i-1]!=temp: "+roomList[i-1]!=temp);
+                    if(!roomList[i-1].equals(temp)){roomList[i++] = temp;}
+                }
+                else {roomList[i++] = temp;}
             }
-        }while (!temp.equals("R#!*013#END")&&i<3);
+        }while (!end);
     }
 }

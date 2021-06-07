@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sheeptalk.logic.klient.Klient;
 import com.example.sheeptalk.logic.klient.Singleton;
+import com.example.sheeptalk.logic.klient.WiadomościTreści;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class CustomAdapterWiadomosci extends RecyclerView.Adapter<CustomAdapterW
     private Singleton singleton;
     private Klient klient;
     private int index;
+    private WiadomościTreści tresci;
 
 
     Context context;
@@ -31,25 +33,29 @@ public class CustomAdapterWiadomosci extends RecyclerView.Adapter<CustomAdapterW
         this.singleton=Singleton.getInstance();
         this.klient = singleton.klient;
         this.context=context;
+        this.tresci=WiadomościTreści.getInstance();
 
     }
 
     @Override
     public CustomAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_conversations,parent,false);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_maybe,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view_message,parent,false);
         return new CustomAdapterViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CustomAdapterViewHolder holder, final int position){
+        holder.messege.setText(tresci.tresci[position]);
+        holder.timem.setText(tresci.daty[position]);
+        holder.user.setText(tresci.uczestnicy[position]);
 
 
     }
 
     @Override
     public int getItemCount(){
-        return 0;
+        return 100;
     }
 
     public static class CustomAdapterViewHolder extends RecyclerView.ViewHolder{

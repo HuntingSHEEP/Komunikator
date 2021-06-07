@@ -84,6 +84,9 @@ public class NarzedziaPolaczen {
                 case 21:
                     command21(polaczenie);
                     break;
+                case 22:
+                    command22(polaczenie, data, baza, listaPolaczen);
+                    break;
             }
 
         }else if(polaczenie.getKRAG() == 3){
@@ -371,11 +374,17 @@ public class NarzedziaPolaczen {
                         "; TREŚĆ: " + trescRozmowy
                 );
                 command19(polaczenie, idPokoju, idUczestnika, dataWyslania, trescRozmowy);
+                sleep(150);
             }
             command20(polaczenie);
-        }catch (Exception e){
+            sleep(150);
+        }catch (Exception e) {
             e.printStackTrace();
             command1(polaczenie);
+            try {
+                sleep(150);
+            }
+            catch (Exception E){}
         }
     }
 
