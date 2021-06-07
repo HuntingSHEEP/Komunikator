@@ -6,11 +6,13 @@ import java.util.List;
 public class Singleton {
     private static Singleton single_instance = null;
     public Klient klient;
+    public String id;
 
 
     private Singleton(){
         this.klient = new Klient();
         new AsyncClient().execute(klient);
+        this.id ="";
 
 
 

@@ -19,6 +19,8 @@ import com.example.sheeptalk.logic.klient.WiadomościTreści;
 
 import static java.lang.Thread.sleep;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Wiadomosci extends AppCompatActivity {
     private int ConvID;
@@ -66,6 +68,15 @@ public class Wiadomosci extends AppCompatActivity {
                 String message = nowaWiadomosc.getText().toString();
                 Date date = new Date(System.currentTimeMillis());
                 klient.sendMessage("R#!*022"+ConvID+"!"+date+"!"+message+"#END");
+                tresci.uczestnicy[++tresci.last]=singleton.id;
+                String pattern = "MM/dd/yyyy HH:mm:ss";
+                DateFormat df = new SimpleDateFormat(pattern);
+                String todayAsString = df.format(date);
+                tresci.daty[tresci.last]=todayAsString;
+                tresci.tresci[tresci.last]=message;
+                adapter.notifyDataSetChanged();
+
+
             }
 
         });
@@ -73,17 +84,21 @@ public class Wiadomosci extends AppCompatActivity {
         loadMess();
         adapter.notifyDataSetChanged();
 
-        
+
 
 
     }
 
     private void loadMess(){
-        String[] temp = new String[3];
         klient.sendMessage("R#!*016"+ConvID+"#END");
+        loadmessloop();
 
+    }
+    private void loadmessloop(){
         int i = 0;
+        String[] temp = new String[3];
         boolean end =false;
+
         do{
             try{
                 sleep(100);
@@ -97,7 +112,8 @@ public class Wiadomosci extends AppCompatActivity {
                 if (!end) {
                     tresci.uczestnicy[i] = temp[1];
                     tresci.daty[i] = temp[2];
-                    tresci.tresci[i++] = temp[3];
+                    tresci.tresci[i] = temp[3];
+                    tresci.last=i++;
                 }
             }
             System.out.println(end);

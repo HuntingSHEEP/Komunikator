@@ -5,11 +5,13 @@ public class WiadomościTreści {
     public String[] uczestnicy;
     public String[] daty;
     public String[] tresci;
+    public  int last;
 
     private WiadomościTreści(){
         this.uczestnicy = new String[100];
         this.daty = new String[100];
         this.tresci = new String[100];
+        this.last=0;
     }
 
     public static WiadomościTreści getInstance(){

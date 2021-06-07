@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 if(zalogowano){
+                    singleton.id=loginS;
                     //to nie jest używane >> przeniesiono do asynca
                     LogIn();
                 }
